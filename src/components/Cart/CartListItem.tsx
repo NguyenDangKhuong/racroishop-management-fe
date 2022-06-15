@@ -56,15 +56,15 @@ const CartListItem: React.FC<{
             <div className='flex justify-center w-1/5'>
               <svg
                 onClick={() =>
-                  // setProductList(
-                  //   currProduct?.quantity > 1
-                  //     ? productList.map(item =>
-                  //         item._id === _id
-                  //           ? { ...item, quantity: item.quantity - 1 }
-                  //           : item
-                  //       )
-                  //     : productList.filter(item => _id !== item._id)
-                  // )
+                  setProductList(
+                    currProduct?.quantity > 1
+                      ? productList.map(item =>
+                          item._id === _id
+                            ? { ...item, quantity: item.quantity - 1 }
+                            : item
+                        )
+                      : productList.filter(item => _id !== item._id)
+                  )
                 }
                 className='fill-current text-gray-600 w-3 cursor-pointer hover:text-blue-500'
                 viewBox='0 0 448 512'>
