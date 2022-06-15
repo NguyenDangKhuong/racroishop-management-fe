@@ -42,7 +42,6 @@ const Cart: NextPage = () => {
 
   const onChangeSearchInput = useCallback(
     (e: any) => setSearchValue(e.target.value),
-    [searchValue]
   )
 
   const totalProduct: number = productList.reduce(
