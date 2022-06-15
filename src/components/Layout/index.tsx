@@ -3,7 +3,7 @@ import Header from '../Header'
 import Sidebar from '../Sidebar'
 
 interface IWrapperProps {
-  children: ReactNode
+  children?: ReactNode
 }
 
 const Layout = ({ children }: IWrapperProps) => {
