@@ -1,6 +1,18 @@
 {
-  "semi": false,
   "singleQuote": true,
+  "jsxSingleQuote": true,
   "tabWidth": 2,
-  "useTabs": false
+  "bracketSpacing": true,
+  "bracketSameLine": true,
+  "trailingComma": "none",
+  "arrowParens": "avoid",
+  "semi": false,
+  "importOrder": [
+    "^(next/(.*)$)|^(next$)",
+    "<THIRD_PARTY_MODULES>",
+    "next-seo.config",
+    "^src/components/(.*)$",
+    "^src/utils/(.*)$",
+    "^[./]"
+  ]
 }
