@@ -1,6 +1,6 @@
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useQuery } from 'react-query'
+import { useQuery, QueryClient, dehydrate } from 'react-query'
 import CartInput from '../components/Cart/CartInput'
 import CartListItem from '../components/Cart/CartListItem'
 import CartSumary from '../components/Cart/CartSumary'
@@ -64,23 +64,39 @@ const Cart: NextPage = () => {
   // };
   return (
     <div className='container mx-auto mt-10'>
-      <CartInput
+      {/* <CartInput
         inputValue={searchValue}
         handleSearchValue={onChangeSearchInput}
-      />
+      /> */}
       <div className='flex shadow-md my-10'>
         {/* {renderResult()} */}
-        <CartListItem
+        {/* <CartListItem
           totalProduct={totalProduct}
           productList={productList}
           setProductList={(newProductList: Product[]) =>
             setProductList(newProductList)
           }
         />
-        <CartSumary totalProduct={totalProduct} productList={productList} />
+        <CartSumary totalProduct={totalProduct} productList={productList} /> */}
       </div>
     </div>
   )
 }
+
+// export const getStaticProps: GetStaticProps = async context => {
+//   console.log(context)
+
+//   const queryClient = new QueryClient()
+
+//   await queryClient.prefetchQuery('searchProduct', () => get(`/api/products/`))
+
+//   console.log(queryClient)
+
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient)
+//     }
+//   }
+// }
 
 export default Cart

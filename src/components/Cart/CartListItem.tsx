@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { SetStateAction } from 'react'
 import { Product } from '../../types/Product'
 import { currencyFormat } from '../../utils/currencyFormat'
 

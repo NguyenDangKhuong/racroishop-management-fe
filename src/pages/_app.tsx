@@ -5,13 +5,16 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      },
-    },
-  }))
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false
+          }
+        }
+      })
+  )
 
   return (
     <QueryClientProvider client={queryClient}>

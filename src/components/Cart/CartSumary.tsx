@@ -24,7 +24,9 @@ const CartSumary: React.FC<{
         <span className='font-semibold text-sm uppercase'>
           {totalProduct} sản phẩm
         </span>
-        <span className='font-semibold text-sm'>{currencyFormat(totalPrice)}</span>
+        <span className='font-semibold text-sm'>
+          {currencyFormat(totalPrice)}
+        </span>
       </div>
       <div>
         <label className='font-medium inline-block mb-3 text-sm uppercase'>
@@ -74,11 +76,11 @@ const CartSumary: React.FC<{
         </button>
       </div>
       <div className='border-t mt-8'>
-          <div className='flex font-semibold justify-between py-6 text-sm uppercase'>
-            <span>Tiền thối lại cho khách</span>
-            <span>{currencyFormat(exchange)}</span>
-          </div>
+        <div className='flex font-semibold justify-between py-6 text-sm uppercase'>
+          <span>Tiền thối lại cho khách</span>
+          <span>{currencyFormat(exchange)}</span>
         </div>
+      </div>
     </div>
   )
 }
