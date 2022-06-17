@@ -64,10 +64,10 @@ const Cart: NextPage = () => {
   // };
   return (
     <div className='container mx-auto mt-10'>
-      {/* <CartInput
+      <CartInput
         inputValue={searchValue}
         handleSearchValue={onChangeSearchInput}
-      /> */}
+      />
       <div className='flex shadow-md my-10'>
         {/* {renderResult()} */}
         {/* <CartListItem
