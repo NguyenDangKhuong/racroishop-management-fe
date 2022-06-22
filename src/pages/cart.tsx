@@ -77,7 +77,7 @@ const Cart: NextPage = () => {
             setProductList(newProductList)
           }
         />
-        {/* <CartSumary totalProduct={totalProduct} productList={productList} /> */}
+        <CartSumary totalProduct={totalProduct} productList={productList} />
       </div>
     </div>
   )
