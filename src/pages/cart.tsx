@@ -70,14 +70,14 @@ const Cart: NextPage = () => {
       />
       <div className='flex shadow-md my-10'>
         {/* {renderResult()} */}
-        {/* <CartListItem
+        <CartListItem
           totalProduct={totalProduct}
           productList={productList}
           setProductList={(newProductList: Product[]) =>
             setProductList(newProductList)
           }
         />
-        <CartSumary totalProduct={totalProduct} productList={productList} /> */}
+        {/* <CartSumary totalProduct={totalProduct} productList={productList} /> */}
       </div>
     </div>
   )
