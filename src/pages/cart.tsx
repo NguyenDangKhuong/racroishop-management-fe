@@ -49,19 +49,28 @@ const Cart: NextPage = () => {
     (acc, { quantity }) => acc + quantity,
     0
   )
+  console.log(data)
 
   // const renderResult = () => {
   //   if (isLoading) {
-  //     return <div className="search-message">Loading...</div>;
+  //     return <div className='search-message'>Loading...</div>
   //   }
   //   if (isError) {
-  //     return <div className="search-message">Something went wrong</div>;
+  //     return <div className='search-message'>Something went wrong</div>
   //   }
   //   if (isSuccess) {
-  //     return <PokemonsSearchResult pokemons={data} />;
+  //     return (
+  //       <CartListItem
+  //         totalProduct={totalProduct}
+  //         productList={productList}
+  //         setProductList={(newProductList: Product[]) =>
+  //           setProductList(newProductList)
+  //         }
+  //       />
+  //     )
   //   }
-  //   return <></>;
-  // };
+  //   return <></>
+  // }
   return (
     <div className='container mx-auto mt-10'>
       <CartInput
