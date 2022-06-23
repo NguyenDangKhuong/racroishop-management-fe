@@ -49,7 +49,6 @@ const Cart: NextPage = () => {
     (acc, { quantity }) => acc + quantity,
     0
   )
-  console.log(data)
 
   // const renderResult = () => {
   //   if (isLoading) {
