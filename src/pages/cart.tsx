@@ -16,7 +16,7 @@ const Cart: NextPage = () => {
 
   const { isLoading, isError, isSuccess, data } = useQuery(
     ['searchProduct', debounedSearchValue],
-    () => get(`/api/products/${debounedSearchValue}`),
+    () => get(`/api/product/${debounedSearchValue}`),
     {
       enabled: debounedSearchValue.length > 0
     }
