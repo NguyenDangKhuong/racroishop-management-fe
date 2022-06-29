@@ -25,12 +25,12 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   console.log(req)
   const { _id } = req.query
   const product: Product | null = await ProductModel.findById(_id)
-  res.status(200).json(product)
+  return res.status(200).json(product)
 }
 
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   const product: Product = await new ProductModel({ ...req.body })
-  res.status(201).json(product)
+  return res.status(201).json(product)
 }
 
 async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
@@ -38,5 +38,5 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
   const deletedProduct: Product | null = await ProductModel.findOneAndDelete({
     _id
   })
-  res.status(200).json(deletedProduct)
+  return res.status(200).json(deletedProduct)
 }
