@@ -1,9 +1,10 @@
-import { GetStaticProps, NextPage } from 'next'
+import { NextPage } from 'next'
+import Head from 'next/head'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useQuery, QueryClient, dehydrate } from 'react-query'
-import CartInput from '../components/Cart/CartInput'
-import CartListItem from '../components/Cart/CartListItem'
-import CartSumary from '../components/Cart/CartSumary'
+import { useQuery } from 'react-query'
+import CartInput from '../components/Carts/CartInput'
+import CartListItem from '../components/Carts/CartListItem'
+import CartSumary from '../components/Carts/CartSumary'
 import useDebounce from '../hooks/useDebounce'
 import { Product } from '../types/Product'
 import { get } from '../utils/api'
@@ -71,40 +72,29 @@ const Cart: NextPage = () => {
   //   return <></>
   // }
   return (
-    <div className='container mx-auto mt-10'>
-      <CartInput
-        inputValue={searchValue}
-        handleSearchValue={onChangeSearchInput}
-      />
-      <div className='flex shadow-md my-10'>
-        {/* {renderResult()} */}
-        <CartListItem
-          totalProduct={totalProduct}
-          productList={productList}
-          setProductList={(newProductList: Product[]) =>
-            setProductList(newProductList)
-          }
+    <>
+      <Head>
+        <title>Thanh toán</title>
+      </Head>
+      <div className='container mx-auto mt-10'>
+        <CartInput
+          inputValue={searchValue}
+          handleSearchValue={onChangeSearchInput}
         />
-        <CartSumary totalProduct={totalProduct} productList={productList} />
+        <div className='flex shadow-md my-10'>
+          {/* {renderResult()} */}
+          <CartListItem
+            totalProduct={totalProduct}
+            productList={productList}
+            setProductList={(newProductList: Product[]) =>
+              setProductList(newProductList)
+            }
+          />
+          <CartSumary totalProduct={totalProduct} productList={productList} />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
-
-// export const getStaticProps: GetStaticProps = async context => {
-//   console.log(context)
-
-//   const queryClient = new QueryClient()
-
-//   await queryClient.prefetchQuery('searchProduct', () => get(`/api/products/`))
-
-//   console.log(queryClient)
-
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient)
-//     }
-//   }
-// }
 
 export default Cart

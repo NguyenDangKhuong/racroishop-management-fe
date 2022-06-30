@@ -1,7 +1,9 @@
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import { useState } from 'react'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -19,6 +21,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
+        <Head>
+          <title>Rắc rối shop của vợ yêu</title>
+        </Head>
         <Component {...pageProps} />
         <ReactQueryDevtools initialIsOpen={false} />
       </Hydrate>
