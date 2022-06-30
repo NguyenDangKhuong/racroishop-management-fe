@@ -1,8 +1,19 @@
 import Table from '../components/Table'
 import { renderPageWithLayout } from '../utils/renderPageWithLayout'
 
-const Home = () => {
-  return <>{renderPageWithLayout(<Table />)}</>
+const Product = () => {
+  
+  return (
+    <>
+      {renderPageWithLayout(
+        <div className='flex flex-wrap mt-4'>
+          <div className='w-full mb-12 px-4'>
+            <Table />
+          </div>
+        </div>
+      )}
+    </>
+  )
 }
 
-export default Home
+export default Product

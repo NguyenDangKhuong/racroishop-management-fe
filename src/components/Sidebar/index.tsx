@@ -20,7 +20,7 @@ const Sidebar = () => {
         {/* Brand */}
         <Link href='/'>
           <a
-            href='#pablo'
+            href='#'
             className='md:block text-left md:pb-2 text-gray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0'>
             Rắc Rối Shop
           </a>
@@ -37,7 +37,7 @@ const Sidebar = () => {
         {/* Collapse */}
         <div
           className={
-            'border md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded ' +
+            'sx:border md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded ' +
             collapseShow
           }>
           {/* Collapse header */}
@@ -46,7 +46,7 @@ const Sidebar = () => {
               <div className='w-6/12'>
                 <Link href='/'>
                   <a
-                    href='#pablo'
+                    href='#'
                     className='md:block text-left md:pb-2 text-gray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0'>
                     Notus NextJS
                   </a>
@@ -83,9 +83,9 @@ const Sidebar = () => {
 
           <ul className='md:flex-col md:min-w-full flex flex-col list-none'>
             <li className='items-center'>
-              <Link href='/admin/dashboard'>
+              <Link href='/product'>
                 <a
-                  href='#pablo'
+                  href='#'
                   className={
                     'text-xs uppercase py-3 font-bold block ' +
                     (router.pathname.indexOf('/admin/dashboard') !== -1
@@ -99,15 +99,15 @@ const Sidebar = () => {
                         ? 'opacity-75'
                         : 'text-gray-300')
                     }></i>{' '}
-                  Dashboard
+                  Quản lí sản phẩm
                 </a>
               </Link>
             </li>
 
             <li className='items-center'>
-              <Link href='/admin/settings'>
+              <Link href='/cart'>
                 <a
-                  href='#pablo'
+                  href='#'
                   className={
                     'text-xs uppercase py-3 font-bold block ' +
                     (router.pathname.indexOf('/admin/settings') !== -1
@@ -121,7 +121,7 @@ const Sidebar = () => {
                         ? 'opacity-75'
                         : 'text-gray-300')
                     }></i>{' '}
-                  Settings
+                  Thanh toán
                 </a>
               </Link>
             </li>
@@ -129,7 +129,7 @@ const Sidebar = () => {
             <li className='items-center'>
               <Link href='/admin/tables'>
                 <a
-                  href='#pablo'
+                  href='#'
                   className={
                     'text-xs uppercase py-3 font-bold block ' +
                     (router.pathname.indexOf('/admin/tables') !== -1
@@ -151,7 +151,7 @@ const Sidebar = () => {
             <li className='items-center'>
               <Link href='/admin/maps'>
                 <a
-                  href='#pablo'
+                  href='#'
                   className={
                     'text-xs uppercase py-3 font-bold block ' +
                     (router.pathname.indexOf('/admin/maps') !== -1
@@ -183,7 +183,7 @@ const Sidebar = () => {
             <li className='items-center'>
               <Link href='/auth/login'>
                 <a
-                  href='#pablo'
+                  href='#'
                   className='text-gray-700 hover:text-gray-500 text-xs uppercase py-3 font-bold block'>
                   <i className='fas fa-fingerprint text-gray-400 mr-2 text-sm'></i>{' '}
                   Login
@@ -194,7 +194,7 @@ const Sidebar = () => {
             <li className='items-center'>
               <Link href='/auth/register'>
                 <a
-                  href='#pablo'
+                  href='#'
                   className='text-gray-700 hover:text-gray-500 text-xs uppercase py-3 font-bold block'>
                   <i className='fas fa-clipboard-list text-gray-300 mr-2 text-sm'></i>{' '}
                   Register
@@ -215,7 +215,7 @@ const Sidebar = () => {
             <li className='items-center'>
               <Link href='/landing'>
                 <a
-                  href='#pablo'
+                  href='#'
                   className='text-gray-700 hover:text-gray-500 text-xs uppercase py-3 font-bold block'>
                   <i className='fas fa-newspaper text-gray-400 mr-2 text-sm'></i>{' '}
                   Landing Page
@@ -226,7 +226,7 @@ const Sidebar = () => {
             <li className='items-center'>
               <Link href='/profile'>
                 <a
-                  href='#pablo'
+                  href='#'
                   className='text-gray-700 hover:text-gray-500 text-xs uppercase py-3 font-bold block'>
                   <i className='fas fa-user-circle text-gray-400 mr-2 text-sm'></i>{' '}
                   Profile Page

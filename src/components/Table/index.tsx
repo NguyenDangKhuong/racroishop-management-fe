@@ -16,7 +16,7 @@ const Table = ({ color = 'light' }: { color?: string }) => {
                 'font-semibold text-lg ' +
                 (color === 'light' ? 'text-blueGray-700' : 'text-white')
               }>
-              Card Tables
+              Danh sách sản phẩm
             </h3>
           </div>
         </div>
@@ -33,7 +33,7 @@ const Table = ({ color = 'light' }: { color?: string }) => {
                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                     : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
                 }>
-                Project
+                Tên
               </th>
               <th
                 className={
@@ -42,7 +42,7 @@ const Table = ({ color = 'light' }: { color?: string }) => {
                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                     : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
                 }>
-                Budget
+                Đơn giá
               </th>
               <th
                 className={
@@ -51,7 +51,7 @@ const Table = ({ color = 'light' }: { color?: string }) => {
                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                     : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
                 }>
-                Status
+                Trạng thái
               </th>
               <th
                 className={
@@ -60,7 +60,7 @@ const Table = ({ color = 'light' }: { color?: string }) => {
                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                     : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
                 }>
-                Users
+                Danh mục
               </th>
               <th
                 className={
@@ -69,7 +69,7 @@ const Table = ({ color = 'light' }: { color?: string }) => {
                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
                     : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
                 }>
-                Completion
+                Mã số
               </th>
               <th
                 className={
@@ -133,7 +133,7 @@ const Table = ({ color = 'light' }: { color?: string }) => {
                   </div>
                 </div>
               </td>
-              <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right'>
+              <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right relative'>
                 <TableDropdown />
               </td>
             </tr>
