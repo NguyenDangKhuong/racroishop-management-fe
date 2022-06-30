@@ -247,6 +247,7 @@ const Sidebar = () => {
               <a
                 href='https://www.creative-tim.com/learning-lab/tailwind/nextjs/colors/notus'
                 target='_blank'
+                rel='noreferrer'
                 className='text-gray-700 hover:text-gray-500 text-sm block mb-4 no-underline font-semibold'>
                 <i className='fas fa-paint-brush mr-2 text-gray-300 text-base'></i>
                 Styles
@@ -257,6 +258,7 @@ const Sidebar = () => {
               <a
                 href='https://www.creative-tim.com/learning-lab/tailwind/nextjs/alerts/notus'
                 target='_blank'
+                rel='noreferrer'
                 className='text-gray-700 hover:text-gray-500 text-sm block mb-4 no-underline font-semibold'>
                 <i className='fab fa-css3-alt mr-2 text-gray-300 text-base'></i>
                 CSS Components
@@ -267,6 +269,7 @@ const Sidebar = () => {
               <a
                 href='https://www.creative-tim.com/learning-lab/tailwind/angular/overview/notus'
                 target='_blank'
+                rel='noreferrer'
                 className='text-gray-700 hover:text-gray-500 text-sm block mb-4 no-underline font-semibold'>
                 <i className='fab fa-angular mr-2 text-gray-300 text-base'></i>
                 Angular
@@ -277,6 +280,7 @@ const Sidebar = () => {
               <a
                 href='https://www.creative-tim.com/learning-lab/tailwind/js/overview/notus'
                 target='_blank'
+                rel='noreferrer'
                 className='text-gray-700 hover:text-gray-500 text-sm block mb-4 no-underline font-semibold'>
                 <i className='fab fa-js-square mr-2 text-gray-300 text-base'></i>
                 Javascript
@@ -287,6 +291,7 @@ const Sidebar = () => {
               <a
                 href='https://www.creative-tim.com/learning-lab/tailwind/nextjs/overview/notus'
                 target='_blank'
+                rel='noreferrer'
                 className='text-gray-700 hover:text-gray-500 text-sm block mb-4 no-underline font-semibold'>
                 <i className='fab fa-react mr-2 text-gray-300 text-base'></i>
                 NextJS
@@ -297,6 +302,7 @@ const Sidebar = () => {
               <a
                 href='https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus'
                 target='_blank'
+                rel='noreferrer'
                 className='text-gray-700 hover:text-gray-500 text-sm block mb-4 no-underline font-semibold'>
                 <i className='fab fa-react mr-2 text-gray-300 text-base'></i>
                 React
@@ -307,6 +313,7 @@ const Sidebar = () => {
               <a
                 href='https://www.creative-tim.com/learning-lab/tailwind/svelte/overview/notus'
                 target='_blank'
+                rel='noreferrer'
                 className='text-gray-700 hover:text-gray-500 text-sm block mb-4 no-underline font-semibold'>
                 <i className='fas fa-link mr-2 text-gray-300 text-base'></i>
                 Svelte
@@ -317,6 +324,7 @@ const Sidebar = () => {
               <a
                 href='https://www.creative-tim.com/learning-lab/tailwind/vue/overview/notus'
                 target='_blank'
+                rel='noreferrer'
                 className='text-gray-700 hover:text-gray-500 text-sm block mb-4 no-underline font-semibold'>
                 <i className='fab fa-vuejs mr-2 text-gray-300 text-base'></i>
                 VueJS
