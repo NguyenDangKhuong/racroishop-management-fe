@@ -11,6 +11,9 @@ export class Product {
   @prop({ type: () => Number })
   categoryId?: number
 
+  @prop({ type: () => Number })
+  stock?: number
+
   @prop({ type: () => String, required: true, unique: true, default: shortid.generate() })
   sku!: string
 
