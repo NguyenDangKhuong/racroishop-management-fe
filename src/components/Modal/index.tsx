@@ -1,4 +1,4 @@
-import { SetStateAction, useRef } from 'react'
+import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 
@@ -62,6 +62,7 @@ export default function Modal({
                         type='number'
                         placeholder='Đơn giá'
                         className='px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
+                        {...register('price')}
                       />
                     </div>
                     <div className='mb-3 pt-0'>
@@ -69,6 +70,7 @@ export default function Modal({
                         type='number'
                         placeholder='Số lượng'
                         className='px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
+                        {...register('price')}
                       />
                     </div>
                     <div className='mb-3 pt-0'>
@@ -76,7 +78,7 @@ export default function Modal({
                         placeholder='Danh mục'
                         defaultValue=''
                         className='px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
-                        <option value='' disabled selected>Danh mục</option>
+                        <option value='' disabled>Danh mục</option>
                         <option value='1'>Danh mục 1</option>
                         <option value='2'>Danh mục 2</option>
                       </select>
