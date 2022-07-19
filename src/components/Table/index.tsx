@@ -1,7 +1,7 @@
-import React from 'react'
+import { useState } from 'react'
 import { Product } from '../../models/Product'
 import { currencyFormat } from '../../utils/currencyFormat'
-import TableDropdown from '../Dropdowns/TableDropdown'
+import Modal from '../Modal'
 
 const Table = ({
   color = 'light',
@@ -10,7 +10,8 @@ const Table = ({
   color?: string
   products: Product[]
 }) => {
-  console.log(products)
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div
       className={
@@ -28,7 +29,7 @@ const Table = ({
               Danh sách sản phẩm
             </h3>
           </div>
-          <span>
+          <span onClick={() => setShowModal(true)}>
             <i className='fas fa-plus text-lg text-emerald-500 mr-4'></i>Thêm
             Sản Phẩm
           </span>
@@ -97,7 +98,7 @@ const Table = ({
           </thead>
           <tbody>
             {products.map(item => (
-              <tr>
+              <tr key={item.sku}>
                 <th className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center'>
                   <span>{item.name}</span>
                 </th>
@@ -122,6 +123,7 @@ const Table = ({
           </tbody>
         </table>
       </div>
+      <Modal showModal={showModal} setShowModal={(val: boolean) => setShowModal(val)}></Modal>
     </div>
   )
 }

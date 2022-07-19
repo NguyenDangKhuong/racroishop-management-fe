@@ -10,7 +10,6 @@ const Product = () => {
     () => get(`/api/products/`),
   )
 
-  console.log(data)
   return (
     <>
       {renderPageWithLayout(
