@@ -74,8 +74,9 @@ export default function Modal({
                     <div className='mb-3 pt-0'>
                       <select
                         placeholder='Danh mục'
-                        d=""
+                        defaultValue=''
                         className='px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
+                        <option value='' disabled selected>Danh mục</option>
                         <option value='1'>Danh mục 1</option>
                         <option value='2'>Danh mục 2</option>
                       </select>
