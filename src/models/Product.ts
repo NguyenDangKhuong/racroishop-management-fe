@@ -1,7 +1,9 @@
 import { prop, getModelForClass } from '@typegoose/typegoose'
-import shortid from 'shortid'
 
 export class Product {
+  @prop({ type: () => String, required: true, unique: true })
+  _id!: string
+
   @prop({ type: () => String, required: true, unique: true })
   name!: string
 
@@ -12,9 +14,9 @@ export class Product {
   categoryId?: number
 
   @prop({ type: () => Number })
-  stock?: number
+  quantity?: number
 
-  @prop({ type: () => String, required: true, unique: true, default: shortid.generate() })
+  @prop({ type: () => String, required: true, unique: true })
   sku!: string
 
   @prop({ type: () => String })

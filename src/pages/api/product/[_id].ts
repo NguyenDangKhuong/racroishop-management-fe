@@ -9,9 +9,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     case 'GET':
       await handleGetRequest(req, res)
       break
-    case 'POST':
-      await handlePostRequest(req, res)
-      break
     case 'DELETE':
       await handleDeleteRequest(req, res)
       break
@@ -22,15 +19,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
-  console.log(req)
   const { _id } = req.query
   const product: Product | null = await ProductModel.findById(_id)
   return res.status(200).json(product)
-}
-
-async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
-  const product: Product = await new ProductModel({ ...req.body })
-  return res.status(201).json(product)
 }
 
 async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {

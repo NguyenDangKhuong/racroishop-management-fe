@@ -5,17 +5,13 @@ import connectDb from '../../utils/connectDb'
 connectDb()
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(req)
   switch (req.method) {
     case 'GET':
       await handleGetRequest(req, res)
       break
-    // case 'POST':
-    //   await handlePostRequest(req, res)
-    //   break
-    // case 'DELETE':
-    //   await handleDeleteRequest(req, res)
-    //   break
+    case 'POST':
+      await handlePostRequest(req, res)
+      break
     default:
       res.status(405).send(`Method ${req.method} not allowed!`)
       break
@@ -27,3 +23,10 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   const product: Product | null = await ProductModel.findOne({ _id })
   res.status(200).json(product)
 }
+
+async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
+  console.log('post', req.body)
+  const product: Product = await new ProductModel({ ...req.body }).save()
+  return res.status(201).json(product)
+}
+

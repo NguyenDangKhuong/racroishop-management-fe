@@ -1,10 +1,16 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
+import shortid from 'shortid'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
+import { post } from '../../utils/api'
 
 type FormData = {
   name: string
   price: string
+  quantity: number
+  categoryId: number
+  sku: string
 }
 
 export default function Modal({
@@ -17,13 +23,25 @@ export default function Modal({
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, () => setShowModal(false))
 
+  const queryClient = useQueryClient()
+  const mutationPostProduct = useMutation(
+    (newProduct: FormData) => post('/api/product', newProduct),
+    {
+      onSuccess: () => {
+        setShowModal(false)
+        queryClient.refetchQueries(['fetchProducts'])
+      }
+    }
+  )
+
   const {
     register,
-    setValue,
     handleSubmit,
     formState: { errors }
   } = useForm<FormData>()
-  const onSubmit = handleSubmit(data => console.log(data))
+  const onSubmit = handleSubmit(data =>
+    mutationPostProduct.mutate({ ...data, sku: shortid.generate() })
+  )
 
   return (
     <>
@@ -70,15 +88,18 @@ export default function Modal({
                         type='number'
                         placeholder='Số lượng'
                         className='px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
-                        {...register('price')}
+                        {...register('quantity')}
                       />
                     </div>
                     <div className='mb-3 pt-0'>
                       <select
                         placeholder='Danh mục'
                         defaultValue=''
+                        {...register('categoryId')}
                         className='px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
-                        <option value='' disabled>Danh mục</option>
+                        <option value='' disabled>
+                          Danh mục
+                        </option>
                         <option value='1'>Danh mục 1</option>
                         <option value='2'>Danh mục 2</option>
                       </select>
@@ -94,9 +115,7 @@ export default function Modal({
                     </button>
                     <button
                       type='submit'
-                      className='bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
-                      // onClick={() => setValue('name', 'aaa')}
-                    >
+                      className='bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'>
                       Thêm
                     </button>
                   </div>

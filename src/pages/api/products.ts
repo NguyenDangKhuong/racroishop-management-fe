@@ -8,7 +8,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { page, size } = req.query
   // Convert querystring values to number
   const pageNum = Number(page)
-  const pageSize = Number(size)
+  const pageSize = 20
+  // const pageSize = Number(size)
   let products = []
   const totalDocs = await ProductModel.countDocuments()
   const totalPages = Math.ceil(totalDocs / pageSize)

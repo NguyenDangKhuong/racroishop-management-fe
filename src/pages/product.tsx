@@ -1,14 +1,16 @@
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import Table from '../components/Table'
 import { get } from '../utils/api'
 import { renderPageWithLayout } from '../utils/renderPageWithLayout'
 
 const Product = () => {
 
-  const { isLoading, isError, isSuccess, data } = useQuery(
+  const { isLoading, isError, isSuccess, data, refetch } = useQuery(
     ['fetchProducts'],
     () => get(`/api/products/`),
   )
+
+  const refetchProduct = refetch
 
   return (
     <>

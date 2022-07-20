@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import CartInput from '../components/Carts/CartInput'
 import CartListItem from '../components/Carts/CartListItem'
 import CartSumary from '../components/Carts/CartSumary'

@@ -33,7 +33,6 @@ export const get = async (url: string, params?: object) => {
 }
 
 export const post = async (url: string, data: object) => {
-  // 並列のAPIコールに失敗するため、一時コメントアウト
   // await reloadUserAuth()
   try {
     const res = await instance.post(url, data)
@@ -63,7 +62,7 @@ export const put = async (url: string, data: object) => {
   }
 }
 
-export const remove = async (url: string, params: object) => {
+export const remove = async (url: string, params?: object) => {
   // await reloadUserAuth()
   try {
     const res = await instance.delete(url, { params })
