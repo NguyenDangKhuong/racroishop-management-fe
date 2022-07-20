@@ -119,8 +119,11 @@ const Table = ({
                 </td>
                 <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                   <i className='fas fa-minus text-lg text-emerald-500'></i>
-                  <input type='number' className='mx-2 px-2 py-1 bg-whiterounded text-sm shadow outline-none focus:outline-none focus:shadow-outline border w-16' defaultValue={item.quantity}/>
-                  {/* {item.quantity} */}
+                  <input
+                    type='number'
+                    className='mx-2 px-2 py-1 bg-whiterounded text-sm shadow outline-none focus:outline-none focus:shadow-outline border w-16'
+                    defaultValue={item.quantity}
+                  />
                   <i className='fas fa-plus text-lg text-emerald-500'></i>
                 </td>
                 <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>

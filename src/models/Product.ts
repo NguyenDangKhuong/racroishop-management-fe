@@ -7,17 +7,17 @@ export class Product {
   @prop({ type: () => String, required: true, unique: true })
   name!: string
 
+  @prop({ type: () => String, required: true, unique: true })
+  sku!: string
+
   @prop({ type: () => Number, required: true })
   price!: number
 
+  @prop({ type: () => Number, required: true })
+  quantity!: number
+
   @prop({ type: () => Number })
   categoryId?: number
-
-  @prop({ type: () => Number })
-  quantity?: number
-
-  @prop({ type: () => String, required: true, unique: true })
-  sku!: string
 
   @prop({ type: () => String })
   image?: string

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Product } from '../../types/Product'
+import { Product } from '../../models/Product'
 import { currencyFormat } from '../../utils/currencyFormat'
 
 const CartListItem: React.FC<{

@@ -1,12 +1,12 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
-import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import CartInput from '../components/Carts/CartInput'
 import CartListItem from '../components/Carts/CartListItem'
 import CartSumary from '../components/Carts/CartSumary'
 import useDebounce from '../hooks/useDebounce'
-import { Product } from '../types/Product'
+import { Product } from '../models/Product'
 import { get } from '../utils/api'
 
 const Cart: NextPage = () => {

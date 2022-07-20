@@ -25,7 +25,10 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
-  console.log('post', req.body)
+  const { name, price, description, mediaUrl } = req.body
+  if (!name || !price || !description || !mediaUrl) {
+    return res.status(422).send('Product missing one or more fidld')
+  }
   const product: Product = await new ProductModel({ ...req.body }).save()
   return res.status(201).json(product)
 }

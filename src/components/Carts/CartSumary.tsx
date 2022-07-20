@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Product } from '../../types/Product'
+import { Product } from '../../models/Product'
 import { currencyFormat } from '../../utils/currencyFormat'
 
 const CartSumary: React.FC<{
