@@ -48,7 +48,7 @@ export default function Modal({
       {showModal ? (
         <>
           <div className='justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none'>
-            <div className='relative w-auto my-6 mx-auto max-w-3xl'>
+            <div className='relative w-3/4 lg:w-1/3 my-6 mx-auto'>
               {/*content*/}
               <div
                 ref={ref}
@@ -71,7 +71,7 @@ export default function Modal({
                       <input
                         type='text'
                         placeholder='Tên'
-                        className='px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
+                        className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
                         {...register('name')}
                       />
                     </div>
@@ -79,7 +79,7 @@ export default function Modal({
                       <input
                         type='number'
                         placeholder='Đơn giá'
-                        className='px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
+                        className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
                         {...register('price')}
                       />
                     </div>
@@ -87,7 +87,7 @@ export default function Modal({
                       <input
                         type='number'
                         placeholder='Số lượng'
-                        className='px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
+                        className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
                         {...register('quantity')}
                       />
                     </div>
@@ -96,7 +96,7 @@ export default function Modal({
                         placeholder='Danh mục'
                         defaultValue=''
                         {...register('categoryId')}
-                        className='px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
+                        className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
                         <option value='' disabled>
                           Danh mục
                         </option>

@@ -13,6 +13,7 @@ const Table = ({
   products: Product[]
 }) => {
   const [showModal, setShowModal] = useState(false)
+  const [editingProduct, setEditingProduct] = useState<Product>(null)
 
   const queryClient = useQueryClient()
   const mutationDelProduct = useMutation(
@@ -133,9 +134,14 @@ const Table = ({
                   <div className='flex items-center'>{item.sku}</div>
                 </td>
                 <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                  <i className='fas fa-edit text-lg text-emerald-500 mr-4'></i>
                   <i
-                    className='fas fa-close text-lg text-emerald-500 mr-2'
+                    className='fas fa-edit text-lg text-emerald-500 mr-4 cursor-pointer'
+                    onClick={() => {
+                      setEditingProduct(item)
+                      setShowModal(true)
+                      }}></i>
+                  <i
+                    className='fas fa-close text-lg text-emerald-500 mr-2 cursor-pointer'
                     onClick={() => mutationDelProduct.mutate(item._id)}></i>
                 </td>
               </tr>

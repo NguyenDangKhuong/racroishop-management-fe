@@ -17,7 +17,7 @@ const Cart: NextPage = () => {
 
   const { isLoading, isError, isSuccess, data } = useQuery(
     ['searchProduct', debounedSearchValue],
-    () => get(`/api/product/${debounedSearchValue}`),
+    () => get(`/api/product/sku/${debounedSearchValue}`),
     {
       enabled: debounedSearchValue.length > 0
     }
@@ -25,7 +25,7 @@ const Cart: NextPage = () => {
 
   const existedProduct = useMemo(
     () =>
-      productList.length > 0 &&
+      productList.length > 0 && data?.data &&
       productList.find(item => item._id === data?.data._id),
     [productList, data?.data]
   )

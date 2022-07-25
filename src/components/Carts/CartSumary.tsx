@@ -66,6 +66,22 @@ const CartSumary: React.FC<{
           onChange={e => setCustomerCash(Number(e.target.value))}
         />
       </div>
+      {customerCash > 0 && (
+        <>
+          <span className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1'>
+            {currencyFormat(customerCash * 1000)}
+          </span>
+          <span className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1'>
+            {currencyFormat(customerCash * 10000)}
+          </span>
+          <span className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1'>
+            {currencyFormat(customerCash * 100000)}
+          </span>
+          <span className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1 mt-2'>
+            {currencyFormat(customerCash * 1000000)}
+          </span>
+        </>
+      )}
       <div className='border-t mt-8'>
         <div className='flex font-semibold justify-between py-6 text-sm uppercase'>
           <span>Tổng tiền</span>

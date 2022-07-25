@@ -29,6 +29,7 @@ const CartListItem: React.FC<{
       </div>
       {productList.map(({ _id, name, price, image = '', quantity }, index) => {
         const currProduct = productList.find(item => item._id === _id)
+        console.log(price)
         return (
           <div
             key={`${_id}${index}`}
