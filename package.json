@@ -21,6 +21,7 @@
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-hook-form": "^7.33.1",
+    "react-to-print": "^2.14.7",
     "shortid": "^2.2.16"
   },
   "devDependencies": {

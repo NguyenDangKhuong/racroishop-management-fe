@@ -4,14 +4,11 @@ import { currencyFormat } from '../../utils/currencyFormat'
 
 const CartSumary: React.FC<{
   totalProduct: number
-  productList: Product[]
-}> = ({ totalProduct, productList }) => {
+  productList: Product[],
+  handlePrint: any,
+  totalPrice: number
+}> = ({ totalProduct, productList, handlePrint, totalPrice }) => {
   const [customerCash, setCustomerCash] = useState(0)
-
-  const totalPrice: number = productList.reduce(
-    (acc, curr) => acc + curr.price * curr.quantity,
-    0
-  )
 
   const exchange = customerCash > 0 ? customerCash - totalPrice : 0
 
@@ -63,21 +60,30 @@ const CartSumary: React.FC<{
           id='customerPrice'
           placeholder='Nhập số tiền khách đưa'
           className='p-2 text-sm w-full bg-gray-200'
+          value={customerCash || ''}
           onChange={e => setCustomerCash(Number(e.target.value))}
         />
       </div>
-      {customerCash > 0 && (
+      {customerCash > 0 && customerCash < 999 && (
         <>
-          <span className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1'>
+          <span
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1 cursor-pointer'
+            onClick={() => setCustomerCash(customerCash * 1000)}>
             {currencyFormat(customerCash * 1000)}
           </span>
-          <span className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1'>
+          <span
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1 cursor-pointer'
+            onClick={() => setCustomerCash(customerCash * 10000)}>
             {currencyFormat(customerCash * 10000)}
           </span>
-          <span className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1'>
+          <span
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1 cursor-pointer'
+            onClick={() => setCustomerCash(customerCash * 100000)}>
             {currencyFormat(customerCash * 100000)}
           </span>
-          <span className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1 mt-2'>
+          <span
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1 mt-2 cursor-pointer'
+            onClick={() => setCustomerCash(customerCash * 1000000)}>
             {currencyFormat(customerCash * 1000000)}
           </span>
         </>
@@ -87,7 +93,8 @@ const CartSumary: React.FC<{
           <span>Tổng tiền</span>
           <span>{currencyFormat(totalPrice)}</span>
         </div>
-        <button className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full'>
+        <button className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full'
+        onClick={handlePrint}>
           Thanh toán
         </button>
       </div>
