@@ -5,7 +5,7 @@ import shortid from 'shortid'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { Product } from '../../models/Product'
 import { post, put } from '../../utils/api'
-import { initialProduct } from '../Table'
+import { initialProduct } from '../ProductTable'
 
 type FormData = {
   name: string
