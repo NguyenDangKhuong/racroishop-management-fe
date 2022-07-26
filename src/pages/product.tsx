@@ -5,12 +5,10 @@ import { renderPageWithLayout } from '../utils/renderPageWithLayout'
 
 const Product = () => {
 
-  const { isLoading, isError, isSuccess, data, refetch } = useQuery(
+  const { isLoading, isError, isSuccess, data } = useQuery(
     ['fetchProducts'],
     () => get(`/api/products/`),
   )
-
-  const refetchProduct = refetch
 
   return (
     <>

@@ -6,6 +6,14 @@ import { currencyFormat } from '../../utils/currencyFormat'
 import BarcodeModal from '../BarcodeModal'
 import Modal from '../Modal'
 
+export const initialProduct = {
+  name: '',
+  price: 0,
+  sku: '',
+  quantity: 0,
+  _id: ''
+}
+
 const Table = ({
   color = 'light',
   products = []
@@ -16,9 +24,10 @@ const Table = ({
   const [showModal, setShowModal] = useState(false)
   const [barcodeValue, setBarcodeValue] = useState('')
   const [showBarcodeModal, setShowBarcodeModal] = useState(false)
-  // const [editingProduct, setEditingProduct] = useState<Product>()
+  const [editingProduct, setEditingProduct] = useState<Product>(initialProduct)
 
   const queryClient = useQueryClient()
+
   const mutationDelProduct = useMutation(
     (_id: string) => remove(`/api/product/${_id}`),
     {
@@ -45,7 +54,11 @@ const Table = ({
               Danh sách sản phẩm
             </h3>
           </div>
-          <span className='cursor-pointer' onClick={() => setShowModal(true)}>
+          <span
+            className='cursor-pointer'
+            onClick={() => 
+              setShowModal(true)
+            }>
             <i className='fas fa-plus text-lg text-emerald-500 mr-4'></i>Thêm
             Sản Phẩm
           </span>
@@ -142,13 +155,12 @@ const Table = ({
                     }}>
                     {item.sku}
                   </div>
-                  
                 </td>
                 <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                   <i
                     className='fas fa-edit text-lg text-emerald-500 mr-4 cursor-pointer'
                     onClick={() => {
-                      // setEditingProduct(item)
+                      setEditingProduct(item)
                       setShowModal(true)
                     }}></i>
                   <i
@@ -162,14 +174,15 @@ const Table = ({
       </div>
       <Modal
         showModal={showModal}
-        setShowModal={(val: boolean) => setShowModal(val)} />
-        <BarcodeModal
-                    barcodeValue={barcodeValue}
-                    showBarcodeModal={showBarcodeModal}
-                    setShowBarcodeModal={(val: boolean) =>
-                      setShowBarcodeModal(val)
-                    }
-                  />
+        setShowModal={(val: boolean) => setShowModal(val)}
+        editingProduct={editingProduct}
+        setEditingProduct={(val) => setEditingProduct(val)}
+      />
+      <BarcodeModal
+        barcodeValue={barcodeValue}
+        showBarcodeModal={showBarcodeModal}
+        setShowBarcodeModal={(val: boolean) => setShowBarcodeModal(val)}
+      />
     </div>
   )
 }
