@@ -13,7 +13,7 @@ type FormData = {
   sku: string
 }
 
-export default function Modal({
+export default function ProductModal({
   showModal,
   setShowModal
 }: {

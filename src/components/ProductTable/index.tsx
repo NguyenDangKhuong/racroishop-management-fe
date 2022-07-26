@@ -1,17 +1,15 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Product } from '../../models/Product'
-import { remove } from '../../utils/api'
+import { get, remove } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
 import BarcodeModal from '../BarcodeModal'
-import Modal from '../Modal'
+import ProductModal from '../ProductModal'
 
-const Table = ({
+const ProductTable = ({
   color = 'light',
-  products = []
 }: {
   color?: string
-  products: Product[]
 }) => {
   const [showModal, setShowModal] = useState(false)
   const [barcodeValue, setBarcodeValue] = useState('')
@@ -26,6 +24,11 @@ const Table = ({
         queryClient.refetchQueries(['fetchProducts'])
       }
     }
+  )
+
+  const { isLoading, isError, isSuccess, data } = useQuery(
+    ['fetchProducts'],
+    () => get(`/api/products/`)
   )
 
   return (
@@ -113,7 +116,7 @@ const Table = ({
             </tr>
           </thead>
           <tbody>
-            {products.map(item => (
+            {data?.data.products.map((item: Product) => (
               <tr key={item.sku}>
                 <th className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>
                   <span>{item.name}</span>
@@ -142,7 +145,6 @@ const Table = ({
                     }}>
                     {item.sku}
                   </div>
-                  
                 </td>
                 <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                   <i
@@ -160,18 +162,17 @@ const Table = ({
           </tbody>
         </table>
       </div>
-      <Modal
+      <ProductModal
         showModal={showModal}
-        setShowModal={(val: boolean) => setShowModal(val)} />
-        <BarcodeModal
-                    barcodeValue={barcodeValue}
-                    showBarcodeModal={showBarcodeModal}
-                    setShowBarcodeModal={(val: boolean) =>
-                      setShowBarcodeModal(val)
-                    }
-                  />
+        setShowModal={(val: boolean) => setShowModal(val)}
+      />
+      <BarcodeModal
+        barcodeValue={barcodeValue}
+        showBarcodeModal={showBarcodeModal}
+        setShowBarcodeModal={(val: boolean) => setShowBarcodeModal(val)}
+      />
     </div>
   )
 }
 
-export default Table
+export default ProductTable
