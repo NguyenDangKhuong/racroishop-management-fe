@@ -21,7 +21,7 @@ const Popovers = ({
           blueGray popover title
         </div>
         <div className='text-white p-3'>
-          And here's some amazing content. It's very engaging. Right?
+          {`And here's some amazing content. It's very engaging. Right?`}
         </div>
       </div>
     </div>

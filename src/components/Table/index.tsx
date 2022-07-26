@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Product } from '../../models/Product'
 import { remove } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
+import BarcodeModal from '../BarcodeModal'
 import Modal from '../Modal'
 
 const Table = ({
@@ -13,6 +14,8 @@ const Table = ({
   products: Product[]
 }) => {
   const [showModal, setShowModal] = useState(false)
+  const [barcodeValue, setBarcodeValue] = useState('')
+  const [showBarcodeModal, setShowBarcodeModal] = useState(false)
   // const [editingProduct, setEditingProduct] = useState<Product>()
 
   const queryClient = useQueryClient()
@@ -131,7 +134,15 @@ const Table = ({
                   {item.categoryId}
                 </td>
                 <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                  <div className='flex items-center'>{item.sku}</div>
+                  <div
+                    className='flex items-center text-blue-500 font-bold cursor-pointer'
+                    onClick={() => {
+                      setBarcodeValue(item.sku)
+                      setShowBarcodeModal(true)
+                    }}>
+                    {item.sku}
+                  </div>
+                  
                 </td>
                 <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                   <i
@@ -139,7 +150,7 @@ const Table = ({
                     onClick={() => {
                       // setEditingProduct(item)
                       setShowModal(true)
-                      }}></i>
+                    }}></i>
                   <i
                     className='fas fa-close text-lg text-emerald-500 mr-2 cursor-pointer'
                     onClick={() => mutationDelProduct.mutate(item._id)}></i>
@@ -151,7 +162,14 @@ const Table = ({
       </div>
       <Modal
         showModal={showModal}
-        setShowModal={(val: boolean) => setShowModal(val)}></Modal>
+        setShowModal={(val: boolean) => setShowModal(val)} />
+        <BarcodeModal
+                    barcodeValue={barcodeValue}
+                    showBarcodeModal={showBarcodeModal}
+                    setShowBarcodeModal={(val: boolean) =>
+                      setShowBarcodeModal(val)
+                    }
+                  />
     </div>
   )
 }
