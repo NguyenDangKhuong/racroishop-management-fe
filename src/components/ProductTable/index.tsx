@@ -6,6 +6,14 @@ import { currencyFormat } from '../../utils/currencyFormat'
 import BarcodeModal from '../BarcodeModal'
 import ProductModal from '../ProductModal'
 
+export const initialProduct = {
+  name: '',
+  price: 0,
+  sku: '',
+  quantity: 0,
+  _id: ''
+}
+
 const ProductTable = ({
   color = 'light',
 }: {
@@ -14,9 +22,10 @@ const ProductTable = ({
   const [showModal, setShowModal] = useState(false)
   const [barcodeValue, setBarcodeValue] = useState('')
   const [showBarcodeModal, setShowBarcodeModal] = useState(false)
-  // const [editingProduct, setEditingProduct] = useState<Product>()
+  const [editingProduct, setEditingProduct] = useState<Product>(initialProduct)
 
   const queryClient = useQueryClient()
+
   const mutationDelProduct = useMutation(
     (_id: string) => remove(`/api/product/${_id}`),
     {
@@ -48,7 +57,11 @@ const ProductTable = ({
               Danh sách sản phẩm
             </h3>
           </div>
-          <span className='cursor-pointer' onClick={() => setShowModal(true)}>
+          <span
+            className='cursor-pointer'
+            onClick={() => 
+              setShowModal(true)
+            }>
             <i className='fas fa-plus text-lg text-emerald-500 mr-4'></i>Thêm
             Sản Phẩm
           </span>
@@ -150,7 +163,7 @@ const ProductTable = ({
                   <i
                     className='fas fa-edit text-lg text-emerald-500 mr-4 cursor-pointer'
                     onClick={() => {
-                      // setEditingProduct(item)
+                      setEditingProduct(item)
                       setShowModal(true)
                     }}></i>
                   <i
@@ -165,6 +178,8 @@ const ProductTable = ({
       <ProductModal
         showModal={showModal}
         setShowModal={(val: boolean) => setShowModal(val)}
+        editingProduct={editingProduct}
+        setEditingProduct={(val: any) => setEditingProduct(val)}
       />
       <BarcodeModal
         barcodeValue={barcodeValue}

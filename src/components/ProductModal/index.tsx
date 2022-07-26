@@ -3,7 +3,9 @@ import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import shortid from 'shortid'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
-import { post } from '../../utils/api'
+import { Product } from '../../models/Product'
+import { post, put } from '../../utils/api'
+import { initialProduct } from '../Table'
 
 type FormData = {
   name: string
@@ -15,20 +17,40 @@ type FormData = {
 
 export default function ProductModal({
   showModal,
-  setShowModal
+  setShowModal,
+  editingProduct,
+  setEditingProduct
 }: {
   showModal: boolean
   setShowModal: any
+  editingProduct: Product,
+  setEditingProduct: any
 }) {
+  const isEditing = editingProduct._id
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+    setEditingProduct(initialProduct)
+  }
+
   const ref = useRef<HTMLDivElement>(null)
-  useOnClickOutside(ref, () => setShowModal(false))
+  useOnClickOutside(ref, () => handleCloseModal())
 
   const queryClient = useQueryClient()
   const mutationPostProduct = useMutation(
     (newProduct: FormData) => post('/api/product', newProduct),
     {
       onSuccess: () => {
-        setShowModal(false)
+        handleCloseModal()
+        queryClient.refetchQueries(['fetchProducts'])
+      }
+    }
+  )
+  const mutationPutProduct = useMutation(
+    (updatedProduct: FormData) => put('/api/product', updatedProduct),
+    {
+      onSuccess: () => {
+        handleCloseModal()
         queryClient.refetchQueries(['fetchProducts'])
       }
     }
@@ -40,8 +62,12 @@ export default function ProductModal({
     formState: { errors }
   } = useForm<FormData>()
   const onSubmit = handleSubmit(data =>
-    mutationPostProduct.mutate({ ...data, sku: shortid.generate() })
+    isEditing
+      ? mutationPutProduct.mutate(data)
+      : mutationPostProduct.mutate({ ...data, sku: shortid.generate() })
   )
+
+console.log(editingProduct.name)
 
   return (
     <>
@@ -55,10 +81,10 @@ export default function ProductModal({
                 className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
                 {/*header*/}
                 <div className='flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t'>
-                  <h3 className='text-3xl font-semibold'>Thêm sản phẩm</h3>
+                  <h3 className='text-3xl font-semibold'>{`${isEditing ? 'Sửa' : 'Thêm'} sản phẩm`}</h3>
                   <button
                     className='p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none'
-                    onClick={() => setShowModal(false)}>
+                    onClick={() => handleCloseModal()}>
                     <span className='bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none'>
                       ×
                     </span>
@@ -72,6 +98,7 @@ export default function ProductModal({
                         type='text'
                         placeholder='Tên'
                         className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
+                        defaultValue={isEditing ? editingProduct.name : ''}
                         {...register('name')}
                       />
                     </div>
@@ -110,13 +137,13 @@ export default function ProductModal({
                     <button
                       className='text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
                       type='button'
-                      onClick={() => setShowModal(false)}>
+                      onClick={() => handleCloseModal()}>
                       Đóng
                     </button>
                     <button
                       type='submit'
                       className='bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'>
-                      Thêm
+                      {isEditing ? 'Sửa' : 'Thêm'}
                     </button>
                   </div>
                 </form>
