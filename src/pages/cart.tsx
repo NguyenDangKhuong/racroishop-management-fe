@@ -97,7 +97,7 @@ const Cart: NextPage = () => {
           inputValue={searchValue}
           handleSearchValue={onChangeSearchInput}
         />
-        <div className='flex shadow-md my-5'>
+        <div className='flex-col md:flex-row flex shadow-md my-5'>
           {/* {renderResult()} */}
           <CartListItem
             totalProduct={totalProduct}

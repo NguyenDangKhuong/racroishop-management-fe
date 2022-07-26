@@ -13,7 +13,7 @@ const Table = ({
   products: Product[]
 }) => {
   const [showModal, setShowModal] = useState(false)
-  const [editingProduct, setEditingProduct] = useState<Product>(null)
+  // const [editingProduct, setEditingProduct] = useState<Product>()
 
   const queryClient = useQueryClient()
   const mutationDelProduct = useMutation(
@@ -137,7 +137,7 @@ const Table = ({
                   <i
                     className='fas fa-edit text-lg text-emerald-500 mr-4 cursor-pointer'
                     onClick={() => {
-                      setEditingProduct(item)
+                      // setEditingProduct(item)
                       setShowModal(true)
                       }}></i>
                   <i
