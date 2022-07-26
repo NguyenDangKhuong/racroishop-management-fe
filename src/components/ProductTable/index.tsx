@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Product } from '../../models/Product'
-import { get, remove } from '../../utils/api'
+import { get, put, remove } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
 import BarcodeModal from '../BarcodeModal'
 import ProductModal from '../ProductModal'
@@ -14,11 +14,7 @@ export const initialProduct = {
   _id: ''
 }
 
-const ProductTable = ({
-  color = 'light',
-}: {
-  color?: string
-}) => {
+const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [showModal, setShowModal] = useState(false)
   const [barcodeValue, setBarcodeValue] = useState('')
   const [showBarcodeModal, setShowBarcodeModal] = useState(false)
@@ -40,6 +36,15 @@ const ProductTable = ({
     () => get(`/api/products/`)
   )
 
+  const mutationPutProduct = useMutation(
+    (updatedProduct: Product) => put('/api/product', updatedProduct),
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries(['fetchProducts'])
+      }
+    }
+  )
+
   return (
     <div
       className={
@@ -57,11 +62,7 @@ const ProductTable = ({
               Danh sách sản phẩm
             </h3>
           </div>
-          <span
-            className='cursor-pointer'
-            onClick={() => 
-              setShowModal(true)
-            }>
+          <span className='cursor-pointer' onClick={() => setShowModal(true)}>
             <i className='fas fa-plus text-lg text-emerald-500 mr-4'></i>Thêm
             Sản Phẩm
           </span>
@@ -138,13 +139,27 @@ const ProductTable = ({
                   {currencyFormat(item.price)}
                 </td>
                 <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-                  <i className='fas fa-minus text-lg text-emerald-500'></i>
+                  <i
+                    className='fas fa-minus text-lg text-emerald-500'
+                    onClick={() =>
+                      mutationPutProduct.mutate({
+                        ...item,
+                        quantity: item.quantity - 1
+                      })
+                    }></i>
                   <input
                     type='number'
                     className='mx-2 px-2 py-1 bg-whiterounded text-sm shadow outline-none focus:outline-none focus:shadow-outline border w-16'
                     defaultValue={item.quantity}
                   />
-                  <i className='fas fa-plus text-lg text-emerald-500'></i>
+                  <i
+                    className='fas fa-plus text-lg text-emerald-500'
+                    onClick={() =>
+                      mutationPutProduct.mutate({
+                        ...item,
+                        quantity: item.quantity + 1
+                      })
+                    }></i>
                 </td>
                 <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
                   {item.categoryId}
