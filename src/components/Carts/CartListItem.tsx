@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Product } from '../../models/Product'
 import { currencyFormat } from '../../utils/currencyFormat'
 
@@ -29,14 +30,13 @@ const CartListItem: React.FC<{
       </div>
       {productList.map(({ _id, name, price, image = '', quantity }, index) => {
         const currProduct = productList.find(item => item._id === _id)
-        console.log(price)
         return (
           <div
             key={`${_id}${index}`}
             className='flex items-center hover:bg-gray-100 -mx-8 px-6 py-5'>
             <div className='flex w-2/5'>
               <div className='w-20'>
-                <img
+                <Image
                   className='h-24'
                   src='/image/product-placeholder.png'
                   alt=''

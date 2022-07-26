@@ -67,8 +67,6 @@ export default function ProductModal({
       : mutationPostProduct.mutate({ ...data, sku: shortid.generate() })
   )
 
-console.log(editingProduct.name)
-
   return (
     <>
       {showModal ? (
