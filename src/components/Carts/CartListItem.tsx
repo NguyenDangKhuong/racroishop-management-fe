@@ -39,6 +39,8 @@ const CartListItem: React.FC<{
                 <Image
                   className='h-24'
                   src='/image/product-placeholder.png'
+                  width={100}
+                  height={100}
                   alt=''
                 />
               </div>

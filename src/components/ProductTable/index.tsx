@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Product } from '../../models/Product'
@@ -55,13 +56,26 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
       )
     }
     if (isError) {
-      return <div className='text-center text-red-500'>Đã xảy ra lỗi, vui lòng liên hệ Khương</div>
+      return (
+        <div className='text-center text-red-500'>
+          Đã xảy ra lỗi, vui lòng liên hệ Khương
+        </div>
+      )
     }
     if (isSuccess) {
       return (
         <table className='items-center w-full bg-transparent border-collapse'>
           <thead>
             <tr>
+              <th
+                className={
+                  'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
+                  (color === 'light'
+                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                    : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+                }>
+                Ảnh
+              </th>
               <th
                 className={
                   'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
@@ -120,16 +134,25 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
           </thead>
           <tbody>
             {data?.data.products.map((item: Product) => (
-              <tr key={item.sku}>
-                <th className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>
+              <tr key={item.sku} className='border-t'>
+                <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
+                  <Image
+                    className='h-24'
+                    src='/image/product-placeholder.png'
+                    width={100}
+                    height={100}
+                    alt=''
+                  />
+                </td>
+                <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
                   <span>{item.name}</span>
-                </th>
-                <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                </td>
+                <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
                   {currencyFormat(item.price)}
                 </td>
-                <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
                   <i
-                    className='fas fa-minus text-lg text-emerald-500'
+                    className='fas fa-minus text-lg text-emerald-500 cursor-pointer'
                     onClick={() =>
                       mutationPutProduct.mutate({
                         ...item,
@@ -142,7 +165,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     defaultValue={item.quantity}
                   />
                   <i
-                    className='fas fa-plus text-lg text-emerald-500'
+                    className='fas fa-plus text-lg text-emerald-500  cursor-pointer'
                     onClick={() =>
                       mutationPutProduct.mutate({
                         ...item,
@@ -150,10 +173,10 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                       })
                     }></i>
                 </td>
-                <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
                   {item.categoryId}
                 </td>
-                <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
                   <div
                     className='flex items-center text-blue-500 font-bold cursor-pointer'
                     onClick={() => {
@@ -163,7 +186,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     {item.sku}
                   </div>
                 </td>
-                <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
+                <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
                   <i
                     className='fas fa-edit text-lg text-emerald-500 mr-4 cursor-pointer'
                     onClick={() => {

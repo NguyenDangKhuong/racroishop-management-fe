@@ -38,6 +38,7 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
 
 async function handlePutRequest(req: NextApiRequest, res: NextApiResponse) {
   const { quantity, _id } = req.body
+  console.log(req.body)
   try {
     await ProductModel.findOneAndUpdate({ _id }, { quantity })
     res.status(200).send('Sản phẩm đã được cập nhật')
