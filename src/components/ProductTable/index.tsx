@@ -49,7 +49,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
     if (isLoading) {
       return (
         <div className='text-center'>
-          <i className='fas fa-spinner fa-spin text-xl mr-2'></i>
+          <i className='fas fa-spinner fa-spin animate-spin text-xl mr-2'></i>
           Đang tải...
         </div>
       )
