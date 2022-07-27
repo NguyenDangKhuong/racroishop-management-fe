@@ -45,31 +45,20 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
     }
   )
 
-  return (
-    <div
-      className={
-        'relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg border rounded ' +
-        (color === 'light' ? 'bg-white' : 'bg-blueGray-700 text-white')
-      }>
-      <div className='rounded-t mb-0 px-4 py-3 border-0'>
-        <div className='flex flex-wrap items-center'>
-          <div className='relative w-full px-4 max-w-full flex-grow flex-1'>
-            <h3
-              className={
-                'font-semibold text-lg ' +
-                (color === 'light' ? 'text-blueGray-700' : 'text-white')
-              }>
-              Danh sách sản phẩm
-            </h3>
-          </div>
-          <span className='cursor-pointer' onClick={() => setShowModal(true)}>
-            <i className='fas fa-plus text-lg text-emerald-500 mr-4'></i>Thêm
-            Sản Phẩm
-          </span>
+  const renderResult = () => {
+    if (isLoading) {
+      return (
+        <div className='text-center'>
+          <i className='fas fa-spinner fa-spin text-xl mr-2'></i>
+          Đang tải...
         </div>
-      </div>
-      <div className='block w-full overflow-x-auto'>
-        {/* Projects table */}
+      )
+    }
+    if (isError) {
+      return <div className='text-center text-red-500'>Đã xảy ra lỗi, vui lòng liên hệ Khương</div>
+    }
+    if (isSuccess) {
+      return (
         <table className='items-center w-full bg-transparent border-collapse'>
           <thead>
             <tr>
@@ -189,6 +178,37 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
             ))}
           </tbody>
         </table>
+      )
+    }
+    return <></>
+  }
+
+  return (
+    <div
+      className={
+        'relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg border rounded ' +
+        (color === 'light' ? 'bg-white' : 'bg-blueGray-700 text-white')
+      }>
+      <div className='rounded-t mb-0 px-4 py-3 border-0'>
+        <div className='flex flex-wrap items-center'>
+          <div className='relative w-full px-4 max-w-full flex-grow flex-1'>
+            <h3
+              className={
+                'font-semibold text-lg ' +
+                (color === 'light' ? 'text-blueGray-700' : 'text-white')
+              }>
+              Danh sách sản phẩm
+            </h3>
+          </div>
+          <span className='cursor-pointer' onClick={() => setShowModal(true)}>
+            <i className='fas fa-plus text-lg text-emerald-500 mr-4'></i>Thêm
+            Sản Phẩm
+          </span>
+        </div>
+      </div>
+      <div className='block w-full overflow-x-auto'>
+        {/* Products table */}
+        {renderResult()}
       </div>
       <ProductModal
         showModal={showModal}
