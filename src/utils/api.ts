@@ -76,17 +76,3 @@ export const remove = async (url: string, params?: object) => {
     return Promise.reject(err)
   }
 }
-
-export const upload = async (url: string, newImage: File | null) => {
-  console.log(newImage)
-  try {
-    if (!newImage) return
-    const data = new FormData()
-    data.append('image', newImage)
-    const res = await instance.post(url, data)
-    return res
-  } catch (err) {
-    console.log(err)
-    return Promise.reject(err)
-  }
-}

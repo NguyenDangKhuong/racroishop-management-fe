@@ -3,7 +3,7 @@ import Document, {
   DocumentContext,
   Html,
   Main,
-  NextScript, 
+  NextScript,
   Head
 } from 'next/document'
 import React, { ReactElement } from 'react'

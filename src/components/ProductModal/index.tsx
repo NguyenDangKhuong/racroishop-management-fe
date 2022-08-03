@@ -1,10 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast, ToastContainer } from 'react-toastify'
 import shortid from 'shortid'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { Product } from '../../models/Product'
-import { post, put, upload } from '../../utils/api'
+import { post, put } from '../../utils/api'
+import ErrorMessage from '../ErrorMessage'
 import { initialProduct } from '../ProductTable'
 
 type ProductFormData = {
@@ -13,7 +15,8 @@ type ProductFormData = {
   quantity: number
   categoryId: number
   sku: string
-  image: string
+  imageUrl: string
+  imagePublicId: string
 }
 
 export default function ProductModal({
@@ -29,28 +32,29 @@ export default function ProductModal({
 }) {
   const isEditing = editingProduct._id
 
+  const [imageUrl, setImageUrl] = useState('')
   const [imagePublicId, setImagePublicId] = useState('')
 
   const openWidget = () => {
-    // create the widget
     const widget = window.cloudinary.createUploadWidget(
       {
-        cloudName: "ndk",
-        uploadPreset: "racroishop",
-        folder: 'products'
+        cloudName: 'ndk',
+        uploadPreset: 'racroishop',
+        folder: 'racroishop/products'
       },
-      (error: any, result: any) => {
-        if (
-          result.event === "success" &&
-          result.info.resource_type === "image"
-        ) {
-          console.log(result.info);
-          setImagePublicId(result.info.public_id);
+      (error: any, res: any) => {
+        if (error) {
+          console.log(error)
+          return
+        }
+        if (res.event === 'success' && res.info.resource_type === 'image') {
+          setImagePublicId(res.info.public_id)
+          setImageUrl(res.info.url)
         }
       }
-    );
-    widget.open(); // open up the widget after creation
-  };
+    )
+    widget.open()
+  }
 
   const handleCloseModal = () => {
     setShowModal(false)
@@ -67,6 +71,9 @@ export default function ProductModal({
       onSuccess: () => {
         handleCloseModal()
         queryClient.refetchQueries(['fetchProducts'])
+      },
+      onError: (err: any) => {
+        toast.error(err.response.data)
       }
     }
   )
@@ -76,18 +83,9 @@ export default function ProductModal({
       onSuccess: () => {
         handleCloseModal()
         queryClient.refetchQueries(['fetchProducts'])
-      }
-    }
-  )
-  const mutationPostImage = useMutation(
-    (newImage: File | null) =>
-      fetch('http://localhost:3000/api/product/images/upload', {
-        method: 'post',
-        body: newImage
-      }),
-    {
-      onSuccess: res => {
-        console.log(res)
+      },
+      onError: (err: any) => {
+        toast.error(err.response.data)
       }
     }
   )
@@ -99,8 +97,13 @@ export default function ProductModal({
   } = useForm<ProductFormData>()
   const onSubmit = handleSubmit(data =>
     isEditing
-      ? mutationPutProduct.mutate(data)
-      : mutationPostProduct.mutate({ ...data, sku: shortid.generate() })
+      ? mutationPutProduct.mutate({ ...data, imageUrl, imagePublicId })
+      : mutationPostProduct.mutate({
+          ...data,
+          sku: shortid.generate(),
+          imageUrl,
+          imagePublicId
+        })
   )
 
   return (
@@ -135,31 +138,51 @@ export default function ProductModal({
                         placeholder='Tên'
                         className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
                         defaultValue={isEditing ? editingProduct.name : ''}
-                        {...register('name')}
+                        {...register('name', { required: 'Vui lòng nhập tên' })}
                       />
+                      {errors.name && (
+                        <ErrorMessage
+                          message={String(errors.name?.message)}></ErrorMessage>
+                      )}
                     </div>
                     <div className='mb-3 pt-0'>
                       <input
                         type='number'
-                        placeholder='Đơn giá'
+                        placeholder='Giá tiền'
                         className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
-                        {...register('price')}
+                        {...register('price', {
+                          required: 'Vui lòng nhập giá tiền'
+                        })}
                       />
+                      {errors.price && (
+                        <ErrorMessage
+                          message={String(
+                            errors.price?.message
+                          )}></ErrorMessage>
+                      )}
                     </div>
                     <div className='mb-3 pt-0'>
                       <input
                         type='number'
                         placeholder='Số lượng'
                         className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
-                        {...register('quantity')}
+                        {...register('quantity', {
+                          required: 'Vui lòng nhập số lượng'
+                        })}
                       />
+                      {errors.quantity && (
+                        <ErrorMessage
+                          message={String(
+                            errors.quantity?.message
+                          )}></ErrorMessage>
+                      )}
                     </div>
                     <div className='mb-3 pt-0'>
                       <select
                         placeholder='Danh mục'
                         defaultValue=''
                         {...register('categoryId')}
-                        className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
+                        className='px-3 py-3 border  placeholder-blueGray-300 text-gray-400 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
                         <option value='' disabled>
                           Danh mục
                         </option>
@@ -169,9 +192,10 @@ export default function ProductModal({
                     </div>
                     <div className='mb-3 pt-0'>
                       <input
+                        value={imageUrl}
                         readOnly
                         placeholder='Hình ảnh'
-                        className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
+                        className='cursor-pointer px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
                         onClick={openWidget}
                       />
                     </div>

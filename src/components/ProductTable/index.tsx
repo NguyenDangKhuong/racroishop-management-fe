@@ -139,7 +139,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
                   <Image
                     className='h-24'
-                    src='/image/product-placeholder.png'
+                    src={item.imageUrl || '/image/product-placeholder.png'}
                     width={100}
                     height={100}
                     alt=''
@@ -164,7 +164,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     type='number'
                     className='mx-2 px-2 py-1 bg-whiterounded text-sm shadow outline-none focus:outline-none focus:shadow-outline border w-16'
                     value={item.quantity}
-                    onChange={()=>{}}
+                    onChange={() => {}}
                   />
                   <i
                     className='fas fa-plus text-lg text-emerald-500  cursor-pointer'

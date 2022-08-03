@@ -25,6 +25,7 @@ async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
     return res.status(200).json(product)
   } catch (err) {
     console.log(err)
+    res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
   }
 }
 
@@ -37,5 +38,6 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
     return res.status(200).json(deletedProduct)
   } catch (err) {
     console.log(err)
+    res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
   }
 }

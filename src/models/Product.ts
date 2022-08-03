@@ -19,7 +19,10 @@ export class Product {
   categoryId?: number
 
   @prop({ type: () => String })
-  image?: string
+  imageUrl?: string
+
+  @prop({ type: () => String })
+  imagePublicId?: string
 
   @prop({ type: () => Date })
   createAt?: Date

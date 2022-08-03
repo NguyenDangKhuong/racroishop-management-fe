@@ -18,6 +18,11 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/BarcodeModal/index.jsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/components/BarcodeModal/index.jsx"
+  ],
   "exclude": ["node_modules"]
 }

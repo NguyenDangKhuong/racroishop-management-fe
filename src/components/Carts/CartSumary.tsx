@@ -4,8 +4,8 @@ import { currencyFormat } from '../../utils/currencyFormat'
 
 const CartSumary: React.FC<{
   totalProduct: number
-  productList: Product[],
-  handlePrint: any,
+  productList: Product[]
+  handlePrint: any
   totalPrice: number
 }> = ({ totalProduct, productList, handlePrint, totalPrice }) => {
   const [customerCash, setCustomerCash] = useState(0)
@@ -93,8 +93,9 @@ const CartSumary: React.FC<{
           <span>Tổng tiền</span>
           <span>{currencyFormat(totalPrice)}</span>
         </div>
-        <button className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full'
-        onClick={handlePrint}>
+        <button
+          className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full'
+          onClick={handlePrint}>
           Thanh toán
         </button>
       </div>

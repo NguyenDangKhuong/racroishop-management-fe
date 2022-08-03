@@ -1,14 +1,12 @@
-
 import { createPopper } from '@popperjs/core'
 
 const Popovers = ({
   popoverShow,
   popoverRef
 }: {
-    popoverShow: boolean
-    popoverRef: any
+  popoverShow: boolean
+  popoverRef: any
 }) => {
-  
   return (
     <div
       className={

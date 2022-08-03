@@ -1,54 +1,49 @@
-import React from "react";
+import React from 'react'
 
 export default function Footer() {
   return (
     <>
-      <footer className="block py-4 mt-20">
-        <div className="container mx-auto px-4">
-          <hr className="mb-4 border-b-1 border-slate-900" />
-          <div className="flex flex-wrap items-center md:justify-between justify-center">
-            <div className="w-full md:w-4/12 px-4">
-              <div className="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left">
-                Copyright © {new Date().getFullYear()}{" "}
+      <footer className='block py-4 mt-20'>
+        <div className='container mx-auto px-4'>
+          <hr className='mb-4 border-b-1 border-slate-900' />
+          <div className='flex flex-wrap items-center md:justify-between justify-center'>
+            <div className='w-full md:w-4/12 px-4'>
+              <div className='text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left'>
+                Copyright © {new Date().getFullYear()}{' '}
                 <a
-                  href="#"
-                  className="text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1"
-                >
+                  href='#'
+                  className='text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1'>
                   Vợ Thê của NDK
                 </a>
               </div>
             </div>
-            <div className="w-full md:w-8/12 px-4">
-              <ul className="flex flex-wrap list-none md:justify-end  justify-center">
+            <div className='w-full md:w-8/12 px-4'>
+              <ul className='flex flex-wrap list-none md:justify-end  justify-center'>
                 <li>
                   <a
-                    href="#"
-                    className="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
-                  >
+                    href='#'
+                    className='text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3'>
                     NDK
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
-                  >
+                    href='#'
+                    className='text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3'>
                     About Us
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
-                  >
+                    href='#'
+                    className='text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3'>
                     Blog
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
-                  >
+                    href='#'
+                    className='text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3'>
                     MIT License
                   </a>
                 </li>
@@ -58,5 +53,5 @@ export default function Footer() {
         </div>
       </footer>
     </>
-  );
+  )
 }
