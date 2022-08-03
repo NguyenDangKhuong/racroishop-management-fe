@@ -1,7 +1,6 @@
 import { prop, getModelForClass } from '@typegoose/typegoose'
 
 export class Product {
-  @prop({ type: () => String, required: true, unique: true })
   _id!: string
 
   @prop({ type: () => String, required: true, unique: true })

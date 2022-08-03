@@ -127,7 +127,7 @@ const Sidebar = () => {
             </li>
 
             <li className='items-center'>
-              <Link href='/admin/tables'>
+              <Link href='/category'>
                 <a
                   href='#'
                   className={
@@ -143,7 +143,7 @@ const Sidebar = () => {
                         ? 'opacity-75'
                         : 'text-gray-300')
                     }></i>{' '}
-                  Tables
+                  Danh mục sản phẩm
                 </a>
               </Link>
             </li>

@@ -12,7 +12,8 @@ export const initialProduct = {
   price: 0,
   sku: '',
   quantity: 0,
-  _id: ''
+  _id: '',
+  image: ''
 }
 
 const ProductTable = ({ color = 'light' }: { color?: string }) => {
@@ -162,7 +163,8 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                   <input
                     type='number'
                     className='mx-2 px-2 py-1 bg-whiterounded text-sm shadow outline-none focus:outline-none focus:shadow-outline border w-16'
-                    defaultValue={item.quantity}
+                    value={item.quantity}
+                    onChange={()=>{}}
                   />
                   <i
                     className='fas fa-plus text-lg text-emerald-500  cursor-pointer'

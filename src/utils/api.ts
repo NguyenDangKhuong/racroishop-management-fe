@@ -77,20 +77,16 @@ export const remove = async (url: string, params?: object) => {
   }
 }
 
-// export const upload = async (url, formData) => {
-//   await reloadUserAuth()
-//   try {
-//     const res = await instance.post(url, formData, {
-//       headers: {
-//         'content-type': 'multipart/form-data'
-//       }
-//     })
-//     return res
-//   } catch (e) {
-//     if (e.response.status === 401) {
-//       window.localStorage.removeItem(USER_KEY)
-//       window.location.href = '/login'
-//     }
-//     return Promise.reject(e)
-//   }
-// }
+export const upload = async (url: string, newImage: File | null) => {
+  console.log(newImage)
+  try {
+    if (!newImage) return
+    const data = new FormData()
+    data.append('image', newImage)
+    const res = await instance.post(url, data)
+    return res
+  } catch (err) {
+    console.log(err)
+    return Promise.reject(err)
+  }
+}

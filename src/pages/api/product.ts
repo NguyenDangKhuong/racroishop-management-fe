@@ -6,9 +6,9 @@ connectDb()
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
-    case 'GET':
-      await handleGetRequest(req, res)
-      break
+    // case 'GET':
+    //   await handleGetRequest(req, res)
+    //   break
     case 'POST':
       await handlePostRequest(req, res)
       break
@@ -21,11 +21,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
-  const { _id } = req.query
-  const product: Product | null = await ProductModel.findOne({ _id })
-  res.status(200).json(product)
-}
+// async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
+//   const { _id } = req.query
+//   const product: Product | null = await ProductModel.findOne({ _id })
+//   res.status(200).json(product)
+// }
 
 async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
   // const { name, price, description, mediaUrl } = req.body
@@ -37,12 +37,16 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePutRequest(req: NextApiRequest, res: NextApiResponse) {
-  const { quantity, _id } = req.body
-  console.log(req.body)
   try {
-    await ProductModel.findOneAndUpdate({ _id }, { quantity })
-    res.status(200).send('Sản phẩm đã được cập nhật')
+    const { _id } = req.body
+    await ProductModel.findByIdAndUpdate(
+      _id,
+      req.body,
+      { new: true }
+    )
+    res.status(200).send(`Sản phẩm đã được cập nhật!`)
   } catch (error) {
-    res.status(403).send('Xin vui lòng thử lại')
+    console.log(error)
+    res.status(403).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${error}`)
   }
 }

@@ -1,9 +1,14 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { useState } from 'react'
-import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Script from 'next/script'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider
+} from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import { useState } from 'react'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -23,8 +28,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Hydrate state={pageProps.dehydratedState}>
         <Head>
           <title>Rắc rối shop của vợ yêu</title>
+          <link rel='icon' href='/favicon.ico' />
+          <meta charSet='utf-8' />
         </Head>
         <Component {...pageProps} />
+        <Script src='https://widget.Cloudinary.com/v2.0/global/all.js'></Script>
         <ReactQueryDevtools initialIsOpen={false} />
       </Hydrate>
     </QueryClientProvider>

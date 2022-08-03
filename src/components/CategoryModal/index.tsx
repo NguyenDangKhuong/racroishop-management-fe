@@ -1,19 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import shortid from 'shortid'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { Product } from '../../models/Product'
-import { post, put, upload } from '../../utils/api'
+import { post, put } from '../../utils/api'
 import { initialProduct } from '../ProductTable'
 
-type ProductFormData = {
+type FormData = {
   name: string
   price: string
   quantity: number
   categoryId: number
   sku: string
-  image: string
 }
 
 export default function ProductModal({
@@ -24,33 +23,10 @@ export default function ProductModal({
 }: {
   showModal: boolean
   setShowModal: any
-  editingProduct: Product
+  editingProduct: Product,
   setEditingProduct: any
 }) {
   const isEditing = editingProduct._id
-
-  const [imagePublicId, setImagePublicId] = useState('')
-
-  const openWidget = () => {
-    // create the widget
-    const widget = window.cloudinary.createUploadWidget(
-      {
-        cloudName: "ndk",
-        uploadPreset: "racroishop",
-        folder: 'products'
-      },
-      (error: any, result: any) => {
-        if (
-          result.event === "success" &&
-          result.info.resource_type === "image"
-        ) {
-          console.log(result.info);
-          setImagePublicId(result.info.public_id);
-        }
-      }
-    );
-    widget.open(); // open up the widget after creation
-  };
 
   const handleCloseModal = () => {
     setShowModal(false)
@@ -62,7 +38,7 @@ export default function ProductModal({
 
   const queryClient = useQueryClient()
   const mutationPostProduct = useMutation(
-    (newProduct: ProductFormData) => post('/api/product', newProduct),
+    (newProduct: FormData) => post('/api/product', newProduct),
     {
       onSuccess: () => {
         handleCloseModal()
@@ -71,23 +47,11 @@ export default function ProductModal({
     }
   )
   const mutationPutProduct = useMutation(
-    (updatedProduct: ProductFormData) => put('/api/product', updatedProduct),
+    (updatedProduct: FormData) => put('/api/product', updatedProduct),
     {
       onSuccess: () => {
         handleCloseModal()
         queryClient.refetchQueries(['fetchProducts'])
-      }
-    }
-  )
-  const mutationPostImage = useMutation(
-    (newImage: File | null) =>
-      fetch('http://localhost:3000/api/product/images/upload', {
-        method: 'post',
-        body: newImage
-      }),
-    {
-      onSuccess: res => {
-        console.log(res)
       }
     }
   )
@@ -96,7 +60,7 @@ export default function ProductModal({
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<ProductFormData>()
+  } = useForm<FormData>()
   const onSubmit = handleSubmit(data =>
     isEditing
       ? mutationPutProduct.mutate(data)
@@ -115,9 +79,7 @@ export default function ProductModal({
                 className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
                 {/*header*/}
                 <div className='flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t'>
-                  <h3 className='text-3xl font-semibold'>{`${
-                    isEditing ? 'Sửa' : 'Thêm'
-                  } sản phẩm`}</h3>
+                  <h3 className='text-3xl font-semibold'>{`${isEditing ? 'Sửa' : 'Thêm'} sản phẩm`}</h3>
                   <button
                     className='p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none'
                     onClick={() => handleCloseModal()}>
@@ -166,14 +128,6 @@ export default function ProductModal({
                         <option value='1'>Danh mục 1</option>
                         <option value='2'>Danh mục 2</option>
                       </select>
-                    </div>
-                    <div className='mb-3 pt-0'>
-                      <input
-                        readOnly
-                        placeholder='Hình ảnh'
-                        className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
-                        onClick={openWidget}
-                      />
                     </div>
                   </div>
                   {/*footer*/}

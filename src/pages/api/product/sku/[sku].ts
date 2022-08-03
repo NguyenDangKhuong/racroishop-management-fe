@@ -17,7 +17,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   const { sku } = req.query
-  console.log(req.query)
   const product: Product | null = await ProductModel.findOne({ sku })
   return res.status(200).json(product)
 }

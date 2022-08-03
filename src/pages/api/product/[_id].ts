@@ -19,15 +19,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
-  const { _id } = req.query
-  const product: Product | null = await ProductModel.findById(_id)
-  return res.status(200).json(product)
+  try {
+    const { _id } = req.query
+    const product: Product | null = await ProductModel.findById(_id)
+    return res.status(200).json(product)
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
-  const { _id } = req.query
-  const deletedProduct: Product | null = await ProductModel.findOneAndDelete({
-    _id
-  })
-  return res.status(200).json(deletedProduct)
+  try {
+    const { _id } = req.query
+    const deletedProduct: Product | null = await ProductModel.findOneAndDelete({
+      _id
+    })
+    return res.status(200).json(deletedProduct)
+  } catch (err) {
+    console.log(err)
+  }
 }
