@@ -1,19 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { v2 } from 'cloudinary'
-import {
-  API_KEY_CLOUDINARY,
-  API_SECRET_CLOUDINARY,
-  CLOUD_NAME_CLOUDINARY
-} from '../../../helpers/constants'
 import ProductModel, { Product } from '../../../models/Product'
 import connectDb from '../../../utils/connectDb'
+import useRemoveImage from '../../../utils/useRemoveImage'
 
 connectDb()
-v2.config({
-  cloud_name: CLOUD_NAME_CLOUDINARY,
-  api_key: API_KEY_CLOUDINARY,
-  api_secret: API_SECRET_CLOUDINARY
-})
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
@@ -47,7 +37,8 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
     const deletedProduct: Product | null = await ProductModel.findOneAndDelete({
       _id
     })
-    deletedProduct && v2.uploader.destroy(String(deletedProduct?.imagePublicId))
+    deletedProduct && useRemoveImage(String(deletedProduct?.imagePublicId))
+
     return res.status(200).json(deletedProduct)
   } catch (err) {
     console.log(err)

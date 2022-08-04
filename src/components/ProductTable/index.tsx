@@ -18,6 +18,7 @@ export const initialProduct = {
 
 const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [showModal, setShowModal] = useState(false)
+  const [productQuantity, setProductQuantity] = useState(0)
   const [barcodeValue, setBarcodeValue] = useState('')
   const [showBarcodeModal, setShowBarcodeModal] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product>(initialProduct)
@@ -184,6 +185,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     onClick={() => {
                       setBarcodeValue(item.sku)
                       setShowBarcodeModal(true)
+                      setProductQuantity(item.quantity)
                     }}>
                     {item.sku}
                   </div>
@@ -231,9 +233,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
           </span>
         </div>
       </div>
-      <div className='block w-full overflow-x-auto'>
-        {renderResult()}
-      </div>
+      <div className='block w-full overflow-x-auto'>{renderResult()}</div>
       <ProductModal
         showModal={showModal}
         setShowModal={(val: boolean) => setShowModal(val)}
@@ -244,6 +244,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
         barcodeValue={barcodeValue}
         showBarcodeModal={showBarcodeModal}
         setShowBarcodeModal={(val: boolean) => setShowBarcodeModal(val)}
+        productQuantity={productQuantity}
       />
     </div>
   )

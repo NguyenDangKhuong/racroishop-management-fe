@@ -10,6 +10,7 @@ import ErrorMessage from '../ErrorMessage'
 import { initialProduct } from '../ProductTable'
 
 type ProductFormData = {
+  _id: string
   name: string
   price: string
   quantity: string
@@ -42,7 +43,8 @@ export default function ProductModal({
   const mutationPostProduct = useMutation(
     (newProduct: ProductFormData) => post('/api/product', newProduct),
     {
-      onSuccess: () => {
+      onSuccess: res => {
+        toast.success(res.data)
         handleCloseModal()
         queryClient.refetchQueries(['fetchProducts'])
       },
@@ -54,7 +56,8 @@ export default function ProductModal({
   const mutationPutProduct = useMutation(
     (updatedProduct: ProductFormData) => put('/api/product', updatedProduct),
     {
-      onSuccess: () => {
+      onSuccess: res => {
+        toast.success(res.data)
         handleCloseModal()
         queryClient.refetchQueries(['fetchProducts'])
       },
@@ -73,7 +76,12 @@ export default function ProductModal({
   } = useForm<ProductFormData>()
   const onSubmit = handleSubmit(data =>
     isEditing
-      ? mutationPutProduct.mutate({ ...data, imageUrl, imagePublicId })
+      ? mutationPutProduct.mutate({
+          ...data,
+          _id: editingProduct._id,
+          imageUrl,
+          imagePublicId
+        })
       : mutationPostProduct.mutate({
           ...data,
           sku: shortid.generate(),
@@ -106,24 +114,20 @@ export default function ProductModal({
   const handleCloseModal = () => {
     setShowModal(false)
     setEditingProduct(initialProduct)
+    setImageUrl('')
+    setImagePublicId('')
     reset()
   }
 
   useEffect(() => {
-    setValue('name', editingProduct.name)
-    setValue('price', editingProduct.price ? String(editingProduct.price) : '')
-    setValue(
-      'quantity',
-      editingProduct.quantity ? String(editingProduct.quantity) : ''
-    )
-    setValue(
-      'categoryId',
-      editingProduct.categoryId ? Number(editingProduct.categoryId) : 1
-    )
-    setValue('imageUrl', String(editingProduct.imageUrl))
-    editingProduct.imageUrl && setImageUrl(editingProduct.imageUrl)
+    const { name, price, quantity, categoryId, imageUrl } = editingProduct
+    setValue('name', name)
+    setValue('price', price ? String(price) : '')
+    setValue('quantity', quantity ? String(quantity) : '')
+    setValue('categoryId', categoryId ? Number(categoryId) : 1)
+    setValue('imageUrl', String(imageUrl))
+    imageUrl && setImageUrl(imageUrl)
   }, [editingProduct])
-
 
   return (
     <>
