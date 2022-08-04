@@ -45,7 +45,7 @@ const CategoryTable = ({ color = 'light' }: { color?: string }) => {
   //   const renderResult = () => {
   //     if (isLoading) {
   //       return (
-  //         <div className='text-center'>
+  //         <div className='text-center py-5 border-t'>
   //           <i className='fas fa-spinner fa-spin animate-spin text-xl mr-2'></i>
   //           Đang tải...
   //         </div>

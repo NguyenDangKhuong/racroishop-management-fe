@@ -41,7 +41,11 @@ async function handlePostRequest(req: NextApiRequest, res: NextApiResponse) {
 
 async function handlePutRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { _id } = req.body
+    const { _id, name, price, quantity} = req.body
+    console.log(req.body)
+    if (!name || !price || !quantity) {
+      return res.status(422).send('Sản phẩm thiếu một hay nhiều mục')
+    }
     await ProductModel.findByIdAndUpdate(_id, req.body, { new: true })
     res.status(200).send(`Sản phẩm đã được cập nhật!`)
   } catch (err) {

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import shortid from 'shortid'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { Product } from '../../models/Product'
@@ -12,7 +12,7 @@ import { initialProduct } from '../ProductTable'
 type ProductFormData = {
   name: string
   price: string
-  quantity: number
+  quantity: string
   categoryId: number
   sku: string
   imageUrl: string
@@ -34,32 +34,6 @@ export default function ProductModal({
 
   const [imageUrl, setImageUrl] = useState('')
   const [imagePublicId, setImagePublicId] = useState('')
-
-  const openWidget = () => {
-    const widget = window.cloudinary.createUploadWidget(
-      {
-        cloudName: 'ndk',
-        uploadPreset: 'racroishop',
-        folder: 'racroishop/products'
-      },
-      (error: any, res: any) => {
-        if (error) {
-          console.log(error)
-          return
-        }
-        if (res.event === 'success' && res.info.resource_type === 'image') {
-          setImagePublicId(res.info.public_id)
-          setImageUrl(res.info.url)
-        }
-      }
-    )
-    widget.open()
-  }
-
-  const handleCloseModal = () => {
-    setShowModal(false)
-    setEditingProduct(initialProduct)
-  }
 
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, () => handleCloseModal())
@@ -93,7 +67,9 @@ export default function ProductModal({
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setValue,
+    reset
   } = useForm<ProductFormData>()
   const onSubmit = handleSubmit(data =>
     isEditing
@@ -105,6 +81,49 @@ export default function ProductModal({
           imagePublicId
         })
   )
+
+  const openWidget = () => {
+    const widget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: 'ndk',
+        uploadPreset: 'racroishop',
+        folder: 'racroishop/products'
+      },
+      (error: any, res: any) => {
+        if (error) {
+          console.log(error)
+          return
+        }
+        if (res.event === 'success' && res.info.resource_type === 'image') {
+          setImagePublicId(res.info.public_id)
+          setImageUrl(res.info.url)
+        }
+      }
+    )
+    widget.open()
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+    setEditingProduct(initialProduct)
+    reset()
+  }
+
+  useEffect(() => {
+    setValue('name', editingProduct.name)
+    setValue('price', editingProduct.price ? String(editingProduct.price) : '')
+    setValue(
+      'quantity',
+      editingProduct.quantity ? String(editingProduct.quantity) : ''
+    )
+    setValue(
+      'categoryId',
+      editingProduct.categoryId ? Number(editingProduct.categoryId) : 1
+    )
+    setValue('imageUrl', String(editingProduct.imageUrl))
+    editingProduct.imageUrl && setImageUrl(editingProduct.imageUrl)
+  }, [editingProduct])
+
 
   return (
     <>
@@ -137,7 +156,6 @@ export default function ProductModal({
                         type='text'
                         placeholder='Tên'
                         className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
-                        defaultValue={isEditing ? editingProduct.name : ''}
                         {...register('name', { required: 'Vui lòng nhập tên' })}
                       />
                       {errors.name && (
@@ -180,9 +198,8 @@ export default function ProductModal({
                     <div className='mb-3 pt-0'>
                       <select
                         placeholder='Danh mục'
-                        defaultValue=''
                         {...register('categoryId')}
-                        className='px-3 py-3 border  placeholder-blueGray-300 text-gray-400 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
+                        className='px-3 py-3 border  placeholder-blueGray-300 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
                         <option value='' disabled>
                           Danh mục
                         </option>
