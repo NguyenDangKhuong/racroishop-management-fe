@@ -33,9 +33,16 @@ const BarcodeModal = ({
               </button>
             </div>
             {/*body*/}
-            {Array.from(Array(productQuantity), (_, i) => (
-              <Barcode ref={componentRef} value={barcodeValue} />
-            ))}
+            <div ref={componentRef} className='grid grid-cols-2 gap-x-0.5 gap-y-2 text-center m-auto'>
+              {Array.from(Array(productQuantity), (_, i) => (
+                <Barcode
+                  width={1}
+                  height={30}
+                  fontSize={12}
+                  value={barcodeValue}
+                />
+              ))}
+            </div>
             {/*footer*/}
             <div className='flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b'>
               <button

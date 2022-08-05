@@ -5,7 +5,7 @@ import {
   CLOUD_NAME_CLOUDINARY
 } from '../helpers/constants'
 
-const useRemoveImage = (publicId: string) => {
+const removeImage = (publicId: string) => {
   cloudinary.config({
     cloud_name: CLOUD_NAME_CLOUDINARY,
     api_key: API_KEY_CLOUDINARY,
@@ -14,4 +14,4 @@ const useRemoveImage = (publicId: string) => {
   cloudinary.uploader.destroy(publicId)
 }
 
-export default useRemoveImage
+export default removeImage

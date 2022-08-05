@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { nanoid } from 'nanoid'
 import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import shortid from 'shortid'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { Product } from '../../models/Product'
 import { post, put } from '../../utils/api'
@@ -84,7 +84,7 @@ export default function ProductModal({
         })
       : mutationPostProduct.mutate({
           ...data,
-          sku: shortid.generate(),
+          sku: nanoid(5),
           imageUrl,
           imagePublicId
         })

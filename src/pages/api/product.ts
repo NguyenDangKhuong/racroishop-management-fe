@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import ProductModel, { Product } from '../../models/Product'
 import connectDb from '../../utils/connectDb'
-import useRemoveImage from '../../utils/useRemoveImage'
+import removeImage from '../../utils/removeImage'
 
 connectDb()
 
@@ -47,15 +47,14 @@ async function handlePutRequest(req: NextApiRequest, res: NextApiResponse) {
       return res.status(422).send('Sản phẩm thiếu một hay nhiều mục')
     }
 
-  
     await ProductModel.findByIdAndUpdate(_id, req.body, { new: true })
 
     //remove unessesary image
     const currentProduct: Product | null = await ProductModel.findById({ _id })
     const currentImagePublicId = currentProduct?.imagePublicId
     currentImagePublicId !== imagePublicId &&
-      useRemoveImage(String(currentImagePublicId))
-      
+      removeImage(String(currentImagePublicId))
+
     res.status(200).send(`Sản phẩm đã được cập nhật!`)
   } catch (err) {
     console.log(err)

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import ProductModel, { Product } from '../../../models/Product'
 import connectDb from '../../../utils/connectDb'
-import useRemoveImage from '../../../utils/useRemoveImage'
+import removeImage from '../../../utils/removeImage'
 
 connectDb()
 
@@ -37,7 +37,7 @@ async function handleDeleteRequest(req: NextApiRequest, res: NextApiResponse) {
     const deletedProduct: Product | null = await ProductModel.findOneAndDelete({
       _id
     })
-    deletedProduct && useRemoveImage(String(deletedProduct?.imagePublicId))
+    deletedProduct && removeImage(String(deletedProduct?.imagePublicId))
 
     return res.status(200).json(deletedProduct)
   } catch (err) {
