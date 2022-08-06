@@ -6,6 +6,7 @@ import { get, put, remove } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
 import BarcodeModal from '../BarcodeModal'
 import ProductModal from '../ProductModal'
+import useDebounce from '../../hooks/useDebounce'
 
 export const initialProduct = {
   name: '',
@@ -22,6 +23,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [barcodeValue, setBarcodeValue] = useState('')
   const [showBarcodeModal, setShowBarcodeModal] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product>(initialProduct)
+  const [searchValue, setSearchValue] = useState('')
 
   const queryClient = useQueryClient()
 
@@ -38,6 +40,15 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
     ['fetchProducts'],
     () => get(`/api/products/`)
   )
+
+  // const debounedSearchValue = useDebounce(searchValue, 1000)
+  // const { dataProduct } = useQuery(
+  //   ['searchProduct', debounedSearchValue],
+  //   () => get(`/api/product/`, ${debounedSearchValue}),
+  //   {
+  //     enabled: debounedSearchValue.length > 0
+  //   }
+  // )
 
   const mutationPutProduct = useMutation(
     (updatedProduct: Product) => put('/api/product', updatedProduct),
@@ -222,6 +233,8 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
             type='text'
             placeholder='Tìm tên sản phẩm '
             className='border px-3 py-3 placeholder-gray-500 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-1/3 pl-10'
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
         </div>
       </form>
