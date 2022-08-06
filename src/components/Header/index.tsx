@@ -2,7 +2,7 @@ import CardStats from '../Cards/CardStats'
 
 const Header = () => {
   return (
-    <header className='relative bg-blueGray-800 pb-32'>
+    <header className='relative bg-gray-800 pb-32'>
       <div className='px-4 md:px-10 mx-auto w-full'>
         <div>
           <div className='flex flex-wrap'>

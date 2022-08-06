@@ -67,22 +67,22 @@ const CartSumary: React.FC<{
       {customerCash > 0 && customerCash < 999 && (
         <>
           <span
-            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1 cursor-pointer'
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 cursor-pointer'
             onClick={() => setCustomerCash(customerCash * 1000)}>
             {currencyFormat(customerCash * 1000)}
           </span>
           <span
-            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1 cursor-pointer'
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 cursor-pointer'
             onClick={() => setCustomerCash(customerCash * 10000)}>
             {currencyFormat(customerCash * 10000)}
           </span>
           <span
-            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1 cursor-pointer'
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 cursor-pointer'
             onClick={() => setCustomerCash(customerCash * 100000)}>
             {currencyFormat(customerCash * 100000)}
           </span>
           <span
-            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-blueGray-600 bg-blueGray-200 uppercase mr-1 mt-2 cursor-pointer'
+            className='text-xs font-semibold inline-block py-1 px-2 rounded border text-gray-600 bg-gray-200 uppercase mr-1 mt-2 cursor-pointer'
             onClick={() => setCustomerCash(customerCash * 1000000)}>
             {currencyFormat(customerCash * 1000000)}
           </span>

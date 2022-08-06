@@ -73,8 +73,8 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                 className={
                   'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
                   (color === 'light'
-                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                    : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+                    ? 'bg-gray-50 text-gray-500 border-gray-100'
+                    : 'bg-gray-600 text-gray-200 border-gray-500')
                 }>
                 Ảnh
               </th>
@@ -82,8 +82,8 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                 className={
                   'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
                   (color === 'light'
-                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                    : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+                    ? 'bg-gray-50 text-gray-500 border-gray-100'
+                    : 'bg-gray-600 text-gray-200 border-gray-500')
                 }>
                 Tên
               </th>
@@ -91,8 +91,8 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                 className={
                   'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
                   (color === 'light'
-                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                    : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+                    ? 'bg-gray-50 text-gray-500 border-gray-100'
+                    : 'bg-gray-600 text-gray-200 border-gray-500')
                 }>
                 Đơn giá
               </th>
@@ -100,8 +100,8 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                 className={
                   'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
                   (color === 'light'
-                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                    : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+                    ? 'bg-gray-50 text-gray-500 border-gray-100'
+                    : 'bg-gray-600 text-gray-200 border-gray-500')
                 }>
                 Số lượng
               </th>
@@ -109,8 +109,8 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                 className={
                   'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
                   (color === 'light'
-                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                    : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+                    ? 'bg-gray-50 text-gray-500 border-gray-100'
+                    : 'bg-gray-600 text-gray-200 border-gray-500')
                 }>
                 Danh mục
               </th>
@@ -118,8 +118,8 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                 className={
                   'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
                   (color === 'light'
-                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                    : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+                    ? 'bg-gray-50 text-gray-500 border-gray-100'
+                    : 'bg-gray-600 text-gray-200 border-gray-500')
                 }>
                 Mã số
               </th>
@@ -127,8 +127,8 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                 className={
                   'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
                   (color === 'light'
-                    ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-                    : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+                    ? 'bg-gray-50 text-gray-500 border-gray-100'
+                    : 'bg-gray-600 text-gray-200 border-gray-500')
                 }>
                 Sửa/Xóa
               </th>
@@ -211,42 +211,57 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
   }
 
   return (
-    <div
-      className={
-        'relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg border rounded ' +
-        (color === 'light' ? 'bg-white' : 'bg-blueGray-700 text-white')
-      }>
-      <div className='rounded-t mb-0 px-4 py-3 border-0'>
-        <div className='flex flex-wrap items-center'>
-          <div className='relative w-full px-4 max-w-full flex-grow flex-1'>
-            <h3
-              className={
-                'font-semibold text-lg ' +
-                (color === 'light' ? 'text-blueGray-700' : 'text-white')
-              }>
-              Danh sách sản phẩm
-            </h3>
-          </div>
-          <span className='cursor-pointer' onClick={() => setShowModal(true)}>
-            <i className='fas fa-plus text-lg text-emerald-500 mr-4'></i>Thêm
-            Sản Phẩm
+    <>
+      {/* Form */}
+      <form className='md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3 mb-5'>
+        <div className='relative flex w-full flex-wrap items-stretch'>
+          <span className='z-10 h-full leading-snug font-normal absolute text-center text-gray-300 bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3'>
+            <i className='fas fa-search'></i>
           </span>
+          <input
+            type='text'
+            placeholder='Tìm tên sản phẩm '
+            className='border px-3 py-3 placeholder-gray-500 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-1/3 pl-10'
+          />
         </div>
+      </form>
+      <div
+        className={
+          'relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg border rounded ' +
+          (color === 'light' ? 'bg-white' : 'bg-gray-700 text-white')
+        }>
+        <div className='rounded-t mb-0 px-4 py-3 border-0'>
+          <div className='flex flex-wrap items-center'>
+            <div className='relative w-full px-4 max-w-full flex-grow flex-1'>
+              <h3
+                className={
+                  'font-semibold text-lg ' +
+                  (color === 'light' ? 'text-gray-700' : 'text-white')
+                }>
+                Danh sách sản phẩm
+              </h3>
+            </div>
+            <span className='cursor-pointer' onClick={() => setShowModal(true)}>
+              <i className='fas fa-plus text-lg text-emerald-500 mr-4'></i>Thêm
+              Sản Phẩm
+            </span>
+          </div>
+        </div>
+        <div className='block w-full overflow-x-auto'>{renderResult()}</div>
+        <ProductModal
+          showModal={showModal}
+          setShowModal={(val: boolean) => setShowModal(val)}
+          editingProduct={editingProduct}
+          setEditingProduct={(val: any) => setEditingProduct(val)}
+        />
+        <BarcodeModal
+          barcodeValue={barcodeValue}
+          showBarcodeModal={showBarcodeModal}
+          setShowBarcodeModal={(val: boolean) => setShowBarcodeModal(val)}
+          productQuantity={productQuantity}
+        />
       </div>
-      <div className='block w-full overflow-x-auto'>{renderResult()}</div>
-      <ProductModal
-        showModal={showModal}
-        setShowModal={(val: boolean) => setShowModal(val)}
-        editingProduct={editingProduct}
-        setEditingProduct={(val: any) => setEditingProduct(val)}
-      />
-      <BarcodeModal
-        barcodeValue={barcodeValue}
-        showBarcodeModal={showBarcodeModal}
-        setShowBarcodeModal={(val: boolean) => setShowBarcodeModal(val)}
-        productQuantity={productQuantity}
-      />
-    </div>
+    </>
   )
 }
 

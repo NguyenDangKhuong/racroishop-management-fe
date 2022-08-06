@@ -67,8 +67,8 @@ const CategoryTable = ({ color = 'light' }: { color?: string }) => {
   //                 className={
   //                   'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
   //                   (color === 'light'
-  //                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-  //                     : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+  //                     ? 'bg-gray-50 text-gray-500 border-gray-100'
+  //                     : 'bg-gray-600 text-gray-200 border-gray-500')
   //                 }>
   //                 Tên
   //               </th>
@@ -76,8 +76,8 @@ const CategoryTable = ({ color = 'light' }: { color?: string }) => {
   //                 className={
   //                   'px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ' +
   //                   (color === 'light'
-  //                     ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-  //                     : 'bg-blueGray-600 text-blueGray-200 border-blueGray-500')
+  //                     ? 'bg-gray-50 text-gray-500 border-gray-100'
+  //                     : 'bg-gray-600 text-gray-200 border-gray-500')
   //                 }>
   //                 Sửa/Xóa
   //               </th>
@@ -161,7 +161,7 @@ const CategoryTable = ({ color = 'light' }: { color?: string }) => {
   //     <div
   //       className={
   //         'relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg border rounded ' +
-  //         (color === 'light' ? 'bg-white' : 'bg-blueGray-700 text-white')
+  //         (color === 'light' ? 'bg-white' : 'bg-gray-700 text-white')
   //       }>
   //       <div className='rounded-t mb-0 px-4 py-3 border-0'>
   //         <div className='flex flex-wrap items-center'>
@@ -169,7 +169,7 @@ const CategoryTable = ({ color = 'light' }: { color?: string }) => {
   //             <h3
   //               className={
   //                 'font-semibold text-lg ' +
-  //                 (color === 'light' ? 'text-blueGray-700' : 'text-white')
+  //                 (color === 'light' ? 'text-gray-700' : 'text-white')
   //               }>
   //               Danh sách sản phẩm
   //             </h3>

@@ -78,7 +78,7 @@ export default function ProductModal({
                 ref={ref}
                 className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
                 {/*header*/}
-                <div className='flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t'>
+                <div className='flex items-start justify-between p-5 border-b border-solid border-gray-200 rounded-t'>
                   <h3 className='text-3xl font-semibold'>{`${
                     isEditing ? 'Sửa' : 'Thêm'
                   } sản phẩm`}</h3>
@@ -97,7 +97,7 @@ export default function ProductModal({
                       <input
                         type='text'
                         placeholder='Tên'
-                        className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
+                        className='px-3 py-3 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
                         defaultValue={isEditing ? editingProduct.name : ''}
                         {...register('name')}
                       />
@@ -106,7 +106,7 @@ export default function ProductModal({
                       <input
                         type='number'
                         placeholder='Đơn giá'
-                        className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
+                        className='px-3 py-3 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
                         {...register('price')}
                       />
                     </div>
@@ -114,7 +114,7 @@ export default function ProductModal({
                       <input
                         type='number'
                         placeholder='Số lượng'
-                        className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
+                        className='px-3 py-3 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
                         {...register('quantity')}
                       />
                     </div>
@@ -123,7 +123,7 @@ export default function ProductModal({
                         placeholder='Danh mục'
                         defaultValue=''
                         {...register('categoryId')}
-                        className='px-3 py-3 border placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
+                        className='px-3 py-3 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
                         <option value='' disabled>
                           Danh mục
                         </option>
@@ -133,7 +133,7 @@ export default function ProductModal({
                     </div>
                   </div>
                   {/*footer*/}
-                  <div className='flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b'>
+                  <div className='flex items-center justify-end p-6 border-t border-solid border-gray-200 rounded-b'>
                     <button
                       className='text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
                       type='button'
