@@ -24,9 +24,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 async function handleGetRequest(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { _id } = req.query
-    const product: Product | null = await ProductModel.findById(_id)
-    return res.status(200).json(product)
+    const { name } = req.query
+    const products = await ProductModel.find({
+      name: { $regex: name, $options: 'i' }
+    }).limit(5)
+    return res.status(200).json(products)
   } catch (err) {
     console.log(err)
     res.status(500).send(`Xin vui lòng thử lại hoặc báo Khương lỗi là ${err}`)
