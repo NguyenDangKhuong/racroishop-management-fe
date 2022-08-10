@@ -13,7 +13,7 @@ import { currencyFormat } from './../utils/currencyFormat'
 
 const Cart: NextPage = () => {
   const [searchValue, setSearchValue] = useState('')
-  const [productList, setProductList] = useState<Product[]>([])
+  const [cartList, setCartList] = useState<Product[]>([])
 
   const debounedSearchValue = useDebounce(searchValue, 1000)
 
@@ -27,20 +27,20 @@ const Cart: NextPage = () => {
 
   const existedProduct = useMemo(
     () =>
-      productList.length > 0 &&
+      cartList.length > 0 &&
       data?.data &&
-      productList.find(item => item._id === data?.data._id),
-    [productList, data?.data]
+      cartList.find(item => item._id === data?.data._id),
+    [cartList, data?.data]
   )
   useEffect(() => {
     const newProductList = existedProduct
-      ? productList.map(item =>
+      ? cartList.map(item =>
           item._id === data?.data._id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
-      : [...productList, { ...data?.data, quantity: 1 }]
-    data?.data && setProductList(newProductList)
+      : [...cartList, { ...data?.data, quantity: 1 }]
+    data?.data && setCartList(newProductList)
     setSearchValue('')
   }, [data?.data])
 
@@ -49,12 +49,12 @@ const Cart: NextPage = () => {
     [searchValue]
   )
 
-  const totalProduct: number = productList.reduce(
+  const totalCart: number = cartList.reduce(
     (acc, { quantity }) => acc + quantity,
     0
   )
 
-  const totalPrice: number = productList.reduce(
+  const totalPrice: number = cartList.reduce(
     (acc, curr) => acc + curr.price * curr.quantity,
     0
   )
@@ -70,7 +70,7 @@ const Cart: NextPage = () => {
   //     return (
   //       <CartListItem
   //         totalProduct={totalProduct}
-  //         productList={productList}
+  //         cartList={cartList}
   //         setProductList={(newProductList: Product[]) =>
   //           setProductList(newProductList)
   //         }
@@ -100,15 +100,15 @@ const Cart: NextPage = () => {
         <div className='flex-col md:flex-row flex shadow-md my-5'>
           {/* {renderResult()} */}
           <CartListItem
-            totalProduct={totalProduct}
-            productList={productList}
-            setProductList={(newProductList: Product[]) =>
-              setProductList(newProductList)
+            totalCart={totalCart}
+            cartList={cartList}
+            setCartList={(newProductList: Product[]) =>
+              setCartList(newProductList)
             }
           />
           <CartSumary
-            totalProduct={totalProduct}
-            productList={productList}
+            totalCart={totalCart}
+            cartList={cartList}
             totalPrice={totalPrice}
             handlePrint={handlePrint}
           />
@@ -142,7 +142,7 @@ const Cart: NextPage = () => {
               </tr>
             </thead>
             <tbody>
-              {productList.map(item => (
+              {cartList.map(item => (
                 <tr key={item._id}>
                   <td className='border text-left p-3'>{item.name}</td>
                   <td className='border text-right p-3'>{item.quantity}</td>
@@ -157,7 +157,7 @@ const Cart: NextPage = () => {
               <tr>
                 <td className='border border-t-4 text-left p-3'>Tổng</td>
                 <td className='border border-t-4 text-right p-3'>
-                  {totalProduct}
+                  {totalCart}
                 </td>
                 <td colSpan={2} className='border border-t-4 text-right p-3'>
                   {currencyFormat(totalPrice)}

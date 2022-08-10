@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import useDebounce from '../../hooks/useDebounce'
+import Image from 'next/image'
+import { useState } from 'react'
+import { Category } from '../../models/Category'
 import { Product } from '../../models/Product'
 import { get, put, remove } from '../../utils/api'
 import { currencyFormat } from '../../utils/currencyFormat'
@@ -24,7 +24,6 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
   const [showBarcodeModal, setShowBarcodeModal] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product>(initialProduct)
   const [searchValue, setSearchValue] = useState('')
-  const [dataProduct, setDataProduct] = useState<Product[]>([])
 
   const queryClient = useQueryClient()
 
@@ -39,27 +38,22 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
 
   const { isLoading, isError, isSuccess, data } = useQuery(
     ['fetchProducts'],
-    (): Promise<Product[]> =>
-      get(`/api/products/`).then(response => response.data.products)
+    () => get(`/api/products/`)
   )
 
-  const debounedSearchValue = useDebounce(searchValue, 1000)
-  const { isLoading: isSearchLoading, data: dataSearchProduct } = useQuery(
-    ['searchProduct', debounedSearchValue],
-    (): Promise<Product[]> =>
-      get(`/api/product`, { params: { name: debounedSearchValue } }).then(
-        res => res.data
-      ),
-    {
-      enabled: debounedSearchValue.length > 0
-    }
+  const { data: dataCategories } = useQuery(
+    ['fetchCategories'],
+    () => get(`/api/categories/`).then(res => res.data.categories)
   )
 
-  useEffect(() => {
-    dataSearchProduct
-      ? setDataProduct(dataSearchProduct)
-      : setDataProduct(data || [])
-  }, [dataSearchProduct, data])
+  // const debounedSearchValue = useDebounce(searchValue, 1000)
+  // const { dataProduct } = useQuery(
+  //   ['searchProduct', debounedSearchValue],
+  //   () => get(`/api/product/`, ${debounedSearchValue}),
+  //   {
+  //     enabled: debounedSearchValue.length > 0
+  //   }
+  // )
 
   const mutationPutProduct = useMutation(
     (updatedProduct: Product) => put('/api/product', updatedProduct),
@@ -157,7 +151,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
             </tr>
           </thead>
           <tbody>
-            {dataProduct.map((item: Product) => (
+            {data?.data.products.map((item: Product) => (
               <tr key={item.sku} className='border-t'>
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4 text-left'>
                   <Image
@@ -187,7 +181,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     type='number'
                     className='mx-2 px-2 py-1 bg-whiterounded text-sm shadow outline-none focus:outline-none focus:shadow-outline border w-16'
                     value={item.quantity}
-                    onChange={() => {}}
+                    onChange={() => { }}
                   />
                   <i
                     className='fas fa-plus text-lg text-emerald-500  cursor-pointer'
@@ -199,11 +193,11 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
                     }></i>
                 </td>
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
-                  {item.categoryId}
+                  {String(dataCategories?.find((category: Category) => item.categoryId === category._id)?.name)}
                 </td>
                 <td className='px-6 align-middle text-xs whitespace-nowrap p-4'>
                   <div
-                    className='flex items-center text-blue-500 font-bold cursor-pointer select-all'
+                    className='flex items-center text-blue-500 font-bold cursor-pointer'
                     onClick={() => {
                       setBarcodeValue(item.sku)
                       setShowBarcodeModal(true)
@@ -276,6 +270,7 @@ const ProductTable = ({ color = 'light' }: { color?: string }) => {
           showModal={showModal}
           setShowModal={(val: boolean) => setShowModal(val)}
           editingProduct={editingProduct}
+          dataCategories={dataCategories}
           setEditingProduct={(val: any) => setEditingProduct(val)}
         />
         <BarcodeModal

@@ -1,4 +1,4 @@
-// import CategoryTable from '../components/CategoryTable'
+import CategoryTable from '../components/CategoryTable'
 import { renderPageWithLayout } from '../utils/renderPageWithLayout'
 
 const Category = () => {
@@ -6,7 +6,9 @@ const Category = () => {
     <>
       {renderPageWithLayout(
         <div className='flex flex-wrap mt-4'>
-          <div className='w-full mb-12 px-4'>{/* <CategoryTable /> */}</div>
+          <div className='w-full mb-12 px-4'>
+            <CategoryTable />
+          </div>
         </div>
       )}
     </>

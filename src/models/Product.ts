@@ -1,4 +1,4 @@
-import { prop, getModelForClass } from '@typegoose/typegoose'
+import { getModelForClass, prop } from '@typegoose/typegoose'
 
 export class Product {
   _id!: string
@@ -15,8 +15,8 @@ export class Product {
   @prop({ type: () => Number, required: true })
   quantity!: number
 
-  @prop({ type: () => Number })
-  categoryId?: number
+  @prop({ type: () => String })
+  categoryId?: string
 
   @prop({ type: () => String })
   imageUrl?: string

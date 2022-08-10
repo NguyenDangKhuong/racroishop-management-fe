@@ -77,7 +77,7 @@ const Sidebar = () => {
           <hr className='my-4 md:min-w-full' />
           {/* Heading */}
           <h6 className='md:min-w-full text-gray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline'>
-            Admin Layout Pages
+            Quản lí
           </h6>
           {/* Navigation */}
 
@@ -99,7 +99,29 @@ const Sidebar = () => {
                         ? 'opacity-75'
                         : 'text-gray-300')
                     }></i>{' '}
-                  Quản lí sản phẩm
+                  Sản phẩm
+                </a>
+              </Link>
+            </li>
+
+            <li className='items-center'>
+              <Link href='/category'>
+                <a
+                  href='#'
+                  className={
+                    'text-xs uppercase py-3 font-bold block ' +
+                    (router.pathname.indexOf('/admin/tables') !== -1
+                      ? 'text-lightBlue-500 hover:text-lightBlue-600'
+                      : 'text-gray-700 hover:text-gray-500')
+                  }>
+                  <i
+                    className={
+                      'fas fa-table mr-2 text-sm ' +
+                      (router.pathname.indexOf('/admin/tables') !== -1
+                        ? 'opacity-75'
+                        : 'text-gray-300')
+                    }></i>{' '}
+                  Danh mục
                 </a>
               </Link>
             </li>
@@ -122,28 +144,6 @@ const Sidebar = () => {
                         : 'text-gray-300')
                     }></i>{' '}
                   Thanh toán
-                </a>
-              </Link>
-            </li>
-
-            <li className='items-center'>
-              <Link href='/category'>
-                <a
-                  href='#'
-                  className={
-                    'text-xs uppercase py-3 font-bold block ' +
-                    (router.pathname.indexOf('/admin/tables') !== -1
-                      ? 'text-lightBlue-500 hover:text-lightBlue-600'
-                      : 'text-gray-700 hover:text-gray-500')
-                  }>
-                  <i
-                    className={
-                      'fas fa-table mr-2 text-sm ' +
-                      (router.pathname.indexOf('/admin/tables') !== -1
-                        ? 'opacity-75'
-                        : 'text-gray-300')
-                    }></i>{' '}
-                  Danh mục sản phẩm
                 </a>
               </Link>
             </li>

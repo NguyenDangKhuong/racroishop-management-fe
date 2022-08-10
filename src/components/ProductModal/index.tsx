@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
+import { Category } from '../../models/Category'
 import { Product } from '../../models/Product'
 import { post, put } from '../../utils/api'
 import ErrorMessage from '../ErrorMessage'
@@ -14,7 +15,7 @@ type ProductFormData = {
   name: string
   price: string
   quantity: string
-  categoryId: number
+  categoryId: string
   sku: string
   imageUrl: string
   imagePublicId: string
@@ -24,12 +25,14 @@ export default function ProductModal({
   showModal,
   setShowModal,
   editingProduct,
-  setEditingProduct
+  setEditingProduct,
+  dataCategories
 }: {
   showModal: boolean
   setShowModal: any
   editingProduct: Product
   setEditingProduct: any
+  dataCategories: Category[]
 }) {
   const isEditing = editingProduct._id
 
@@ -77,17 +80,17 @@ export default function ProductModal({
   const onSubmit = handleSubmit(data =>
     isEditing
       ? mutationPutProduct.mutate({
-          ...data,
-          _id: editingProduct._id,
-          imageUrl,
-          imagePublicId
-        })
+        ...data,
+        _id: editingProduct._id,
+        imageUrl,
+        imagePublicId
+      })
       : mutationPostProduct.mutate({
-          ...data,
-          sku: nanoid(5),
-          imageUrl,
-          imagePublicId
-        })
+        ...data,
+        sku: nanoid(5),
+        imageUrl,
+        imagePublicId
+      })
   )
 
   const openWidget = () => {
@@ -124,7 +127,7 @@ export default function ProductModal({
     setValue('name', name)
     setValue('price', price ? String(price) : '')
     setValue('quantity', quantity ? String(quantity) : '')
-    setValue('categoryId', categoryId ? Number(categoryId) : 1)
+    setValue('categoryId', categoryId ? String(categoryId) : '')
     setValue('imageUrl', String(imageUrl))
     imageUrl && setImageUrl(imageUrl)
   }, [editingProduct])
@@ -141,9 +144,8 @@ export default function ProductModal({
                 className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
                 {/*header*/}
                 <div className='flex items-start justify-between p-5 border-b border-solid border-gray-200 rounded-t'>
-                  <h3 className='text-3xl font-semibold'>{`${
-                    isEditing ? 'Sửa' : 'Thêm'
-                  } sản phẩm`}</h3>
+                  <h3 className='text-3xl font-semibold'>{`${isEditing ? 'Sửa' : 'Thêm'
+                    } sản phẩm`}</h3>
                   <button
                     className='p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none'
                     onClick={() => handleCloseModal()}>
@@ -207,8 +209,9 @@ export default function ProductModal({
                         <option value='' disabled>
                           Danh mục
                         </option>
-                        <option value='1'>Danh mục 1</option>
-                        <option value='2'>Danh mục 2</option>
+                        {
+                          dataCategories.map(item => <option key={item._id} value={item._id}>{item.name}</option>)
+                        }
                       </select>
                     </div>
                     <div className='mb-3 pt-0'>

@@ -1,57 +1,50 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
-import shortid from 'shortid'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
-import { Product } from '../../models/Product'
+import { Category } from '../../models/Category'
 import { post, put } from '../../utils/api'
-import { initialProduct } from '../ProductTable'
+import { initialCategory } from '../CategoryTable'
 
 type FormData = {
+  _id: string
   name: string
-  price: string
-  quantity: number
-  categoryId: number
-  sku: string
 }
 
-export default function ProductModal({
+export default function CategoryModal({
   showModal,
   setShowModal,
-  editingProduct,
-  setEditingProduct
+  editingCategory,
+  setEditingCategory
 }: {
   showModal: boolean
   setShowModal: any
-  editingProduct: Product
-  setEditingProduct: any
+  editingCategory: Category
+  setEditingCategory: any
 }) {
-  const isEditing = editingProduct._id
+  const isEditing = editingCategory._id
 
-  const handleCloseModal = () => {
-    setShowModal(false)
-    setEditingProduct(initialProduct)
-  }
+
 
   const ref = useRef<HTMLDivElement>(null)
   useOnClickOutside(ref, () => handleCloseModal())
 
   const queryClient = useQueryClient()
-  const mutationPostProduct = useMutation(
-    (newProduct: FormData) => post('/api/product', newProduct),
+  const mutationPostCategory = useMutation(
+    (newCategory: FormData) => post('/api/category', newCategory),
     {
       onSuccess: () => {
         handleCloseModal()
-        queryClient.refetchQueries(['fetchProducts'])
+        queryClient.refetchQueries(['fetchCategories'])
       }
     }
   )
-  const mutationPutProduct = useMutation(
-    (updatedProduct: FormData) => put('/api/product', updatedProduct),
+  const mutationPutCategory = useMutation(
+    (updatedCategory: FormData) => put('/api/category', updatedCategory),
     {
       onSuccess: () => {
         handleCloseModal()
-        queryClient.refetchQueries(['fetchProducts'])
+        queryClient.refetchQueries(['fetchCategories'])
       }
     }
   )
@@ -59,13 +52,26 @@ export default function ProductModal({
   const {
     register,
     handleSubmit,
+    reset,
+    setValue,
     formState: { errors }
   } = useForm<FormData>()
   const onSubmit = handleSubmit(data =>
     isEditing
-      ? mutationPutProduct.mutate(data)
-      : mutationPostProduct.mutate({ ...data, sku: shortid.generate() })
+      ? mutationPutCategory.mutate({ ...data, _id: editingCategory._id })
+      : mutationPostCategory.mutate({ ...data })
   )
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+    setEditingCategory(initialCategory)
+    reset()
+  }
+
+  useEffect(() => {
+    const { name } = editingCategory
+    setValue('name', name)
+  }, [editingCategory])
 
   return (
     <>
@@ -79,9 +85,8 @@ export default function ProductModal({
                 className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
                 {/*header*/}
                 <div className='flex items-start justify-between p-5 border-b border-solid border-gray-200 rounded-t'>
-                  <h3 className='text-3xl font-semibold'>{`${
-                    isEditing ? 'Sửa' : 'Thêm'
-                  } sản phẩm`}</h3>
+                  <h3 className='text-3xl font-semibold'>{`${isEditing ? 'Sửa' : 'Thêm'
+                    } sản phẩm`}</h3>
                   <button
                     className='p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none'
                     onClick={() => handleCloseModal()}>
@@ -96,40 +101,11 @@ export default function ProductModal({
                     <div className='mb-3 pt-0'>
                       <input
                         type='text'
-                        placeholder='Tên'
+                        placeholder='Tên danh mục'
                         className='px-3 py-3 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
-                        defaultValue={isEditing ? editingProduct.name : ''}
+                        defaultValue={isEditing ? editingCategory.name : ''}
                         {...register('name')}
                       />
-                    </div>
-                    <div className='mb-3 pt-0'>
-                      <input
-                        type='number'
-                        placeholder='Đơn giá'
-                        className='px-3 py-3 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
-                        {...register('price')}
-                      />
-                    </div>
-                    <div className='mb-3 pt-0'>
-                      <input
-                        type='number'
-                        placeholder='Số lượng'
-                        className='px-3 py-3 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'
-                        {...register('quantity')}
-                      />
-                    </div>
-                    <div className='mb-3 pt-0'>
-                      <select
-                        placeholder='Danh mục'
-                        defaultValue=''
-                        {...register('categoryId')}
-                        className='px-3 py-3 border placeholder-gray-300 text-gray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full'>
-                        <option value='' disabled>
-                          Danh mục
-                        </option>
-                        <option value='1'>Danh mục 1</option>
-                        <option value='2'>Danh mục 2</option>
-                      </select>
                     </div>
                   </div>
                   {/*footer*/}

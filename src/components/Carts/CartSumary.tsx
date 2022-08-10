@@ -3,11 +3,11 @@ import { Product } from '../../models/Product'
 import { currencyFormat } from '../../utils/currencyFormat'
 
 const CartSumary: React.FC<{
-  totalProduct: number
-  productList: Product[]
+  totalCart: number
+  cartList: Product[]
   handlePrint: any
   totalPrice: number
-}> = ({ totalProduct, productList, handlePrint, totalPrice }) => {
+}> = ({ totalCart, cartList, handlePrint, totalPrice }) => {
   const [customerCash, setCustomerCash] = useState(0)
 
   const exchange = customerCash > 0 ? customerCash - totalPrice : 0
@@ -19,7 +19,7 @@ const CartSumary: React.FC<{
       </h1>
       <div className='flex justify-between mt-10 mb-5'>
         <span className='font-semibold text-sm uppercase'>
-          {totalProduct} sản phẩm
+          {totalCart} sản phẩm
         </span>
         <span className='font-semibold text-sm'>
           {currencyFormat(totalPrice)}
